@@ -43,3 +43,13 @@ export const eventIngestionSchema = z.object({
 });
 
 export type EventIngestionInput = z.infer<typeof eventIngestionSchema>;
+
+export const loginSchema = z.object({
+  email: z
+    .string()
+    .email()
+    .transform((v) => v.toLowerCase()),
+  password: z.string().min(1),
+});
+
+export type LoginInput = z.infer<typeof loginSchema>;

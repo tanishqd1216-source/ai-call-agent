@@ -1,14 +1,17 @@
+import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
+
 const STYLES: Record<string, string> = {
-  in_progress: "bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300",
-  ended: "bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300",
-  error: "bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-300",
+  in_progress: "bg-status-in-progress-bg text-status-in-progress-fg",
+  ended: "bg-status-ended-bg text-status-ended-fg",
+  error: "bg-status-error-bg text-status-error-fg",
 };
 
 export function StatusBadge({ status }: { status: string }) {
-  const style = STYLES[status] ?? "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300";
+  const style = STYLES[status] ?? "bg-muted text-muted-foreground";
   return (
-    <span className={`inline-block rounded-full px-2 py-0.5 text-xs font-medium ${style}`}>
+    <Badge variant="secondary" className={cn(style)}>
       {status.replace("_", " ")}
-    </span>
+    </Badge>
   );
 }
