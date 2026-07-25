@@ -3,11 +3,23 @@ import cors from "cors";
 import { logger } from "./lib/logger.js";
 import { eventsRouter } from "./routes/events.js";
 import { callsRouter } from "./routes/calls.js";
+import { authRouter } from "./routes/auth.js";
+import { departmentsRouter } from "./routes/departments.js";
+
+const allowedOrigins = (process.env.ALLOWED_ORIGINS ?? "")
+  .split(",")
+  .map((s) => s.trim())
+  .filter(Boolean);
 
 export function createApp() {
   const app = express();
 
-  app.use(cors());
+  app.use(
+    cors({
+      origin: allowedOrigins.length ? allowedOrigins : false,
+      allowedHeaders: ["Content-Type", "Authorization"],
+    }),
+  );
   app.use(express.json());
 
   app.use((req, _res, next) => {
@@ -19,6 +31,8 @@ export function createApp() {
 
   app.use("/api", eventsRouter);
   app.use("/api", callsRouter);
+  app.use("/api", authRouter);
+  app.use("/api", departmentsRouter);
 
   app.use(
     (err: unknown, _req: express.Request, res: express.Response, _next: express.NextFunction) => {

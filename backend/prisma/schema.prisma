@@ -1,6 +1,8 @@
 // Prisma schema for the Vetic Voice Agent dashboard's persistence layer.
-// SQLite for local dev; every field/type here is Postgres-safe so switching
-// the datasource provider + DATABASE_URL is the only change needed to migrate.
+// Postgres (Neon in production). Prisma 7's driver-adapter architecture means
+// a provider swap also requires swapping the adapter class in
+// src/lib/prisma.ts and prisma/seed.ts (see @prisma/adapter-pg there) — this
+// datasource line alone is not the whole migration.
 
 generator client {
   provider = "prisma-client"
@@ -8,7 +10,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
 }
 
 model Call {
@@ -65,4 +67,73 @@ model CallEvent {
 
   @@index([callId])
   @@index([eventType])
+}
+
+// --- ERP access flow: login -> company verification -> department/agent picker ---
+
+model Company {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  users User[]
+
+  @@index([name])
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String?
+  company      Company  @relation(fields: [companyId], references: [id])
+  companyId    String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  sessions Session[]
+
+  @@index([companyId])
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+model Department {
+  id          String   @id @default(cuid())
+  name        String
+  slug        String   @unique
+  description String?
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  agents Agent[]
+
+  @@index([sortOrder])
+}
+
+model Agent {
+  id           String     @id @default(cuid())
+  name         String
+  description  String?
+  launchUrl    String?
+  sortOrder    Int        @default(0)
+  department   Department @relation(fields: [departmentId], references: [id])
+  departmentId String
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  @@index([departmentId])
+  @@index([sortOrder])
 }
