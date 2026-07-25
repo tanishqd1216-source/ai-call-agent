@@ -23,6 +23,13 @@ export default async function DashboardPage({
 
   return (
     <div className="flex flex-col gap-6">
+      <div>
+        <h1 className="text-xl font-semibold tracking-tight">Call History</h1>
+        <p className="text-sm text-muted-foreground mt-0.5">
+          Observability for every call the voice agent has handled.
+        </p>
+      </div>
+
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <StatCard label="Total calls" value={String(stats.totalCalls)} />
         <StatCard
@@ -44,12 +51,12 @@ export default async function DashboardPage({
 
       <CallsTable calls={callsResponse.calls} />
 
-      <p className="text-sm text-black/60 dark:text-white/60">
+      <p className="text-sm text-muted-foreground">
         Showing {callsResponse.calls.length} of {callsResponse.total} calls. To place or monitor
         a live test call, use the existing{" "}
         <a
           href="http://localhost:8080"
-          className="underline"
+          className="text-primary hover:text-primary-hover font-medium underline"
           target="_blank"
           rel="noreferrer"
         >

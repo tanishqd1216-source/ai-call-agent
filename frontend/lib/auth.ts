@@ -1,19 +1,45 @@
-// RBAC scaffolding for a future multi-user phase. There is only one
-// operator today, so this returns a fixed admin session rather than reading
-// any real auth state — a real login flow slots in here later without
-// changing how callers consume getCurrentUser()/hasRole().
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+import { getMe, type ErpCompany, type ErpUser } from "@/lib/erp-api";
 
-export type Role = "admin" | "supervisor" | "agent";
+const SESSION_COOKIE = "erp_session";
+const SESSION_MAX_AGE_SECONDS = 7 * 24 * 60 * 60;
 
-export type Session = {
-  name: string;
-  role: Role;
+export type ErpSession = {
+  token: string;
+  user: ErpUser;
+  company: ErpCompany;
 };
 
-export function getCurrentUser(): Session {
-  return { name: "Operator", role: "admin" };
+export async function getSession(): Promise<ErpSession | null> {
+  const store = await cookies();
+  const token = store.get(SESSION_COOKIE)?.value;
+  if (!token) return null;
+
+  const me = await getMe(token);
+  if (!me) return null;
+
+  return { token, user: me.user, company: me.company };
 }
 
-export function hasRole(session: Session, allowed: Role[]): boolean {
-  return allowed.includes(session.role);
+export async function requireSession(): Promise<ErpSession> {
+  const session = await getSession();
+  if (!session) redirect("/erp/login");
+  return session;
+}
+
+export async function setSessionCookie(token: string): Promise<void> {
+  const store = await cookies();
+  store.set(SESSION_COOKIE, token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    path: "/",
+    maxAge: SESSION_MAX_AGE_SECONDS,
+  });
+}
+
+export async function clearSessionCookie(): Promise<void> {
+  const store = await cookies();
+  store.delete(SESSION_COOKIE);
 }

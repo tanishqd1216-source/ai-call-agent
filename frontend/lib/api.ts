@@ -71,7 +71,7 @@ export type CallListFilters = {
   offset?: number;
 };
 
-function apiBaseUrl(): string {
+export function apiBaseUrl(): string {
   return process.env.API_BASE_URL ?? "http://localhost:4000";
 }
 

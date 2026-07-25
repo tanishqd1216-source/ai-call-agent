@@ -2,58 +2,64 @@ import Link from "next/link";
 import type { CallSummary } from "@/lib/api";
 import { formatDateTime, formatDuration } from "@/lib/format";
 import { StatusBadge } from "./StatusBadge";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 export function CallsTable({ calls }: { calls: CallSummary[] }) {
   if (calls.length === 0) {
     return (
-      <div className="rounded-lg border border-black/10 dark:border-white/15 p-8 text-center text-black/60 dark:text-white/60">
+      <div className="rounded-xl bg-card p-8 text-center text-muted-foreground ring-1 ring-foreground/10">
         No calls match these filters yet.
       </div>
     );
   }
 
   return (
-    <div className="overflow-x-auto rounded-lg border border-black/10 dark:border-white/15">
-      <table className="w-full text-sm text-left">
-        <thead className="bg-black/5 dark:bg-white/5">
-          <tr>
-            <th className="px-3 py-2 font-medium">Started</th>
-            <th className="px-3 py-2 font-medium">Direction</th>
-            <th className="px-3 py-2 font-medium">Status</th>
-            <th className="px-3 py-2 font-medium">Category</th>
-            <th className="px-3 py-2 font-medium">Resolution</th>
-            <th className="px-3 py-2 font-medium">Owner / Pet</th>
-            <th className="px-3 py-2 font-medium">Duration</th>
-          </tr>
-        </thead>
-        <tbody>
+    <div className="overflow-hidden rounded-xl bg-card ring-1 ring-foreground/10">
+      <Table>
+        <TableHeader>
+          <TableRow className="hover:bg-transparent">
+            <TableHead className="text-muted-foreground">Started</TableHead>
+            <TableHead className="text-muted-foreground">Direction</TableHead>
+            <TableHead className="text-muted-foreground">Status</TableHead>
+            <TableHead className="text-muted-foreground">Category</TableHead>
+            <TableHead className="text-muted-foreground">Resolution</TableHead>
+            <TableHead className="text-muted-foreground">Owner / Pet</TableHead>
+            <TableHead className="text-muted-foreground">Duration</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
           {calls.map((call) => (
-            <tr
-              key={call.callId}
-              className="border-t border-black/10 dark:border-white/10 hover:bg-black/5 dark:hover:bg-white/5"
-            >
-              <td className="px-3 py-2 whitespace-nowrap">
-                <Link href={`/calls/${encodeURIComponent(call.callId)}`} className="underline">
+            <TableRow key={call.callId}>
+              <TableCell>
+                <Link
+                  href={`/calls-history/${encodeURIComponent(call.callId)}`}
+                  className="font-medium text-primary hover:text-primary-hover"
+                >
                   {formatDateTime(call.startedAt)}
                 </Link>
-              </td>
-              <td className="px-3 py-2 capitalize">{call.direction}</td>
-              <td className="px-3 py-2">
+              </TableCell>
+              <TableCell className="capitalize">{call.direction}</TableCell>
+              <TableCell>
                 <StatusBadge status={call.status} />
-              </td>
-              <td className="px-3 py-2">{call.category ?? "—"}</td>
-              <td className="px-3 py-2">{call.resolution ?? "—"}</td>
-              <td className="px-3 py-2">
+              </TableCell>
+              <TableCell>{call.category ?? "—"}</TableCell>
+              <TableCell>{call.resolution ?? "—"}</TableCell>
+              <TableCell>
                 {call.owner ?? "—"}
                 {call.pet ? ` / ${call.pet}` : ""}
-              </td>
-              <td className="px-3 py-2 whitespace-nowrap">
-                {formatDuration(call.startedAt, call.endedAt)}
-              </td>
-            </tr>
+              </TableCell>
+              <TableCell>{formatDuration(call.startedAt, call.endedAt)}</TableCell>
+            </TableRow>
           ))}
-        </tbody>
-      </table>
+        </TableBody>
+      </Table>
     </div>
   );
 }

@@ -1,61 +1,102 @@
-import Link from "next/link";
+"use client";
+
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import type { CallListFilters } from "@/lib/api";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
+const labelClass = "flex flex-col text-xs font-medium text-muted-foreground gap-1";
 
 export function FilterBar({ filters }: { filters: CallListFilters }) {
+  const router = useRouter();
+  const [direction, setDirection] = useState(filters.direction ?? "all");
+  const [status, setStatus] = useState(filters.status ?? "all");
+  const [category, setCategory] = useState(filters.category ?? "");
+  const [resolution, setResolution] = useState(filters.resolution ?? "");
+
+  function applyFilters(e: React.FormEvent) {
+    e.preventDefault();
+    const params = new URLSearchParams();
+    if (direction !== "all") params.set("direction", direction);
+    if (status !== "all") params.set("status", status);
+    if (category) params.set("category", category);
+    if (resolution) params.set("resolution", resolution);
+    const query = params.toString();
+    router.push(`/calls-history${query ? `?${query}` : ""}`);
+  }
+
+  function resetFilters() {
+    setDirection("all");
+    setStatus("all");
+    setCategory("");
+    setResolution("");
+    router.push("/calls-history");
+  }
+
   return (
-    <form className="flex flex-wrap gap-3 items-end" method="get">
-      <label className="flex flex-col text-sm gap-1">
+    <form
+      onSubmit={applyFilters}
+      className="flex flex-wrap items-end gap-3 rounded-xl bg-card p-4 ring-1 ring-foreground/10"
+    >
+      <label className={labelClass}>
         Direction
-        <select
-          name="direction"
-          defaultValue={filters.direction ?? ""}
-          className="border border-black/15 dark:border-white/20 rounded px-2 py-1 bg-transparent"
-        >
-          <option value="">All</option>
-          <option value="inbound">Inbound</option>
-          <option value="outbound">Outbound</option>
-        </select>
+        <Select value={direction} onValueChange={setDirection}>
+          <SelectTrigger className="w-36">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All</SelectItem>
+            <SelectItem value="inbound">Inbound</SelectItem>
+            <SelectItem value="outbound">Outbound</SelectItem>
+          </SelectContent>
+        </Select>
       </label>
-      <label className="flex flex-col text-sm gap-1">
+      <label className={labelClass}>
         Status
-        <select
-          name="status"
-          defaultValue={filters.status ?? ""}
-          className="border border-black/15 dark:border-white/20 rounded px-2 py-1 bg-transparent"
-        >
-          <option value="">All</option>
-          <option value="in_progress">In progress</option>
-          <option value="ended">Ended</option>
-          <option value="error">Error</option>
-        </select>
+        <Select value={status} onValueChange={setStatus}>
+          <SelectTrigger className="w-36">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All</SelectItem>
+            <SelectItem value="in_progress">In progress</SelectItem>
+            <SelectItem value="ended">Ended</SelectItem>
+            <SelectItem value="error">Error</SelectItem>
+          </SelectContent>
+        </Select>
       </label>
-      <label className="flex flex-col text-sm gap-1">
+      <label className={labelClass}>
         Category
-        <input
-          name="category"
-          defaultValue={filters.category ?? ""}
+        <Input
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
           placeholder="e.g. OPD"
-          className="border border-black/15 dark:border-white/20 rounded px-2 py-1 bg-transparent"
+          className="w-36"
         />
       </label>
-      <label className="flex flex-col text-sm gap-1">
+      <label className={labelClass}>
         Resolution
-        <input
-          name="resolution"
-          defaultValue={filters.resolution ?? ""}
+        <Input
+          value={resolution}
+          onChange={(e) => setResolution(e.target.value)}
           placeholder="e.g. escalated"
-          className="border border-black/15 dark:border-white/20 rounded px-2 py-1 bg-transparent"
+          className="w-36"
         />
       </label>
-      <button
-        type="submit"
-        className="rounded bg-black text-white dark:bg-white dark:text-black px-3 py-1.5 text-sm font-medium"
-      >
+      <Button type="submit" size="sm">
         Filter
-      </button>
-      <Link href="/" className="text-sm underline px-1 py-1.5">
+      </Button>
+      <Button type="button" variant="ghost" size="sm" onClick={resetFilters}>
         Reset
-      </Link>
+      </Button>
     </form>
   );
 }
