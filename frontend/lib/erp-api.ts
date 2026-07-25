@@ -19,7 +19,6 @@ export type Agent = {
   id: string;
   name: string;
   description: string | null;
-  launchUrl: string;
 };
 
 export type DepartmentDetail = {

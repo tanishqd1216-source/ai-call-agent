@@ -55,7 +55,7 @@ export default async function DashboardPage({
         Showing {callsResponse.calls.length} of {callsResponse.total} calls. To place or monitor
         a live test call, use the existing{" "}
         <a
-          href="http://localhost:8080"
+          href="/webcall"
           className="text-primary hover:text-primary-hover font-medium underline"
           target="_blank"
           rel="noreferrer"

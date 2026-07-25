@@ -38,7 +38,6 @@ departmentsRouter.get("/departments/:id/agents", async (req, res) => {
       return res.status(404).json({ error: "department not found" });
     }
 
-    const fallbackUrl = process.env.WEBCALL_URL ?? "http://localhost:8080";
     res.json({
       id: department.id,
       name: department.name,
@@ -47,7 +46,6 @@ departmentsRouter.get("/departments/:id/agents", async (req, res) => {
         id: a.id,
         name: a.name,
         description: a.description,
-        launchUrl: a.launchUrl ?? fallbackUrl,
       })),
     });
   } catch (err) {

@@ -30,7 +30,7 @@ export default async function AgentLaunchPage({
 
       {/* Same-origin path, proxied to WEBCALL_URL by next.config.ts's rewrites —
           avoids opening a new tab and avoids the mixed-content block an HTTPS
-          tunnel would hit embedding agent.launchUrl (plain http://) directly. */}
+          tunnel would hit embedding a raw http:// URL directly. */}
       <iframe
         src="/webcall"
         title={agent.name}
