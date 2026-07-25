@@ -1,0 +1,68 @@
+// Prisma schema for the Vetic Voice Agent dashboard's persistence layer.
+// SQLite for local dev; every field/type here is Postgres-safe so switching
+// the datasource provider + DATABASE_URL is the only change needed to migrate.
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Call {
+  id         String   @id @default(cuid())
+  callId     String   @unique
+  direction  String
+  status     String   @default("in_progress")
+  phase      String?
+  category   String?
+  resolution String?
+  owner      String?
+  pet        String?
+  service    String?
+  clinic     String?
+  city       String?
+  startedAt  DateTime @default(now())
+  endedAt    DateTime?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  turns  CallTurn[]
+  events CallEvent[]
+
+  @@index([direction])
+  @@index([category])
+  @@index([startedAt])
+}
+
+model CallTurn {
+  id                        String   @id @default(cuid())
+  call                      Call     @relation(fields: [callId], references: [callId])
+  callId                    String
+  turn                      Int
+  speechId                  String?
+  eouDelaySeconds           Float?
+  transcriptionDelaySeconds Float?
+  llmTtftSeconds            Float?
+  ttsTtfbSeconds            Float?
+  responseLatencySeconds    Float?
+  inputTokens               Int?
+  outputTokens              Int?
+  createdAt                 DateTime @default(now())
+
+  @@index([callId])
+}
+
+model CallEvent {
+  id        String   @id @default(cuid())
+  call      Call     @relation(fields: [callId], references: [callId])
+  callId    String
+  eventType String
+  payload   String?
+  createdAt DateTime @default(now())
+
+  @@index([callId])
+  @@index([eventType])
+}
