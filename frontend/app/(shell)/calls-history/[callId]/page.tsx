@@ -30,7 +30,7 @@ export default async function CallDetailPage({
         ← Back to call history
       </Link>
 
-      <div className="rounded-xl border border-border bg-surface shadow-sm p-4 grid grid-cols-2 sm:grid-cols-4 gap-4">
+      <div className="rounded-xl border border-border bg-surface ring-1 ring-white/5 p-4 grid grid-cols-2 sm:grid-cols-4 gap-4">
         <Field label="Call ID" value={call.callId} />
         <Field label="Direction" value={call.direction} />
         <Field label="Status" value={<StatusBadge status={call.status} />} />
@@ -44,7 +44,7 @@ export default async function CallDetailPage({
       <div>
         <h2 className="font-semibold tracking-tight mb-2">Timeline</h2>
         {timeline.length === 0 ? (
-          <div className="rounded-xl border border-border bg-surface shadow-sm p-6 text-center text-muted-foreground">
+          <div className="rounded-xl border border-border bg-surface ring-1 ring-white/5 p-6 text-center text-muted-foreground">
             No turns or events recorded for this call yet.
           </div>
         ) : (
@@ -52,7 +52,7 @@ export default async function CallDetailPage({
             {timeline.map((item) => (
               <li
                 key={`${item.kind}-${item.data.id}`}
-                className="rounded-xl border border-border bg-surface shadow-sm p-3 text-sm"
+                className="rounded-xl border border-border bg-surface ring-1 ring-white/5 p-3 text-sm"
               >
                 <div className="flex justify-between text-muted-foreground mb-1">
                   <span>{formatDateTime(item.at)}</span>

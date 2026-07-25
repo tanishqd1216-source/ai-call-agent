@@ -1,18 +1,16 @@
+import { AetherFlowHero } from "@/components/erp/AetherFlowHero";
 import { LoginForm } from "@/components/erp/LoginForm";
 
 export default function LoginPage() {
   return (
-    <div className="min-h-[70vh] flex items-center justify-center px-4">
-      <div className="w-full max-w-sm rounded-xl border border-border bg-surface shadow-sm p-8">
-        <div className="mb-6 text-center">
-          <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-primary-foreground font-semibold">
-            V
-          </span>
-          <h1 className="mt-3 text-lg font-semibold tracking-tight">Sign in</h1>
-          <p className="text-sm text-muted-foreground mt-1">Access your company&apos;s agent workspace.</p>
-        </div>
+    <AetherFlowHero
+      eyebrow="Vetic Voice Agent"
+      title="Sign in to your workspace"
+      subtitle="Access your company's calling agents and call history in one place."
+    >
+      <div className="w-full max-w-sm mx-auto rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md shadow-2xl p-8">
         <LoginForm />
       </div>
-    </div>
+    </AetherFlowHero>
   );
 }

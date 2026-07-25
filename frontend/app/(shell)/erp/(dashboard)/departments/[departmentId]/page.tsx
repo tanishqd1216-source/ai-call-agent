@@ -29,7 +29,7 @@ export default async function DepartmentAgentsPage({
       </div>
 
       {department.agents.length === 0 ? (
-        <div className="rounded-xl border border-border bg-surface shadow-sm p-8 text-center text-muted-foreground">
+        <div className="rounded-xl border border-border bg-surface ring-1 ring-white/5 p-8 text-center text-muted-foreground">
           No agents configured for this department yet.
         </div>
       ) : (
