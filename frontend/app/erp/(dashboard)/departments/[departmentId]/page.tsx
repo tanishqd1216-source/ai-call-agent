@@ -35,7 +35,7 @@ export default async function DepartmentAgentsPage({
       ) : (
         <div className="flex flex-col gap-3">
           {department.agents.map((agent) => (
-            <AgentCard key={agent.id} agent={agent} />
+            <AgentCard key={agent.id} agent={agent} departmentId={departmentId} />
           ))}
         </div>
       )}
