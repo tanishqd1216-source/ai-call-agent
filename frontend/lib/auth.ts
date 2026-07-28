@@ -24,7 +24,7 @@ export async function getSession(): Promise<ErpSession | null> {
 
 export async function requireSession(): Promise<ErpSession> {
   const session = await getSession();
-  if (!session) redirect("/erp/login");
+  if (!session) redirect("/");
   return session;
 }
 

@@ -1,4 +1,4 @@
-// Prisma schema for the Vetic Voice Agent dashboard's persistence layer.
+// Prisma schema for the Meridian dashboard's persistence layer.
 // Postgres (Neon in production). Prisma 7's driver-adapter architecture means
 // a provider swap also requires swapping the adapter class in
 // src/lib/prisma.ts and prisma/seed.ts (see @prisma/adapter-pg there) — this

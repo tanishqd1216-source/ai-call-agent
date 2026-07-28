@@ -46,6 +46,7 @@ departmentsRouter.get("/departments/:id/agents", async (req, res) => {
         id: a.id,
         name: a.name,
         description: a.description,
+        launchUrl: a.launchUrl,
       })),
     });
   } catch (err) {
