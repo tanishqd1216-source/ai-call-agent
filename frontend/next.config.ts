@@ -10,6 +10,14 @@ const webcallTarget = process.env.WEBCALL_URL ?? "http://localhost:8080";
 
 const nextConfig: NextConfig = {
   allowedDevOrigins: ["overdrawn-slush-refute.ngrok-free.dev"],
+  // Dev-mode static-paths generation forks a worker process per dynamic route
+  // request; this sandbox blocks that kind of process spawn (same failure as
+  // headless-browser launches here), which surfaces as "Jest worker
+  // encountered N child process exceptions". Worker threads stay in-process
+  // and sidestep it entirely.
+  experimental: {
+    workerThreads: true,
+  },
   async rewrites() {
     return [
       { source: "/webcall", destination: `${webcallTarget}/` },

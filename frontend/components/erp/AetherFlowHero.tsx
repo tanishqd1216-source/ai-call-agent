@@ -176,23 +176,25 @@ export function AetherFlowHero({ eyebrow, title, subtitle, children }: AetherFlo
   }, []);
 
   return (
-    <div className="relative min-h-screen w-full flex flex-col items-center justify-center overflow-hidden px-4 py-16">
+    <div className="relative min-h-screen w-full flex flex-col items-center justify-center overflow-hidden px-4 py-16 pt-16">
       <canvas ref={canvasRef} className="absolute top-0 left-0 w-full h-full" />
 
-      <div className="relative z-10 text-center flex flex-col items-center gap-6">
-        {eyebrow && (
-          <motion.div
-            custom={0}
-            variants={fadeUpVariants}
-            initial="hidden"
-            animate="visible"
-            className="badge-glass"
-          >
-            <Zap className="h-4 w-4 text-primary" />
-            <span className="text-gray-200">{eyebrow}</span>
-          </motion.div>
-        )}
+      {eyebrow && (
+        <motion.div
+          custom={0}
+          variants={fadeUpVariants}
+          initial="hidden"
+          animate="visible"
+          className="absolute top-20 left-6 md:top-24 md:left-10 z-20 flex items-center gap-3"
+        >
+          <Zap className="h-8 w-8 md:h-12 md:w-12 text-primary" />
+          <span className="text-5xl md:text-7xl font-bold tracking-tighter text-gradient-heading">
+            {eyebrow}
+          </span>
+        </motion.div>
+      )}
 
+      <div className="relative z-10 text-center flex flex-col items-center gap-6">
         <motion.h1
           custom={1}
           variants={fadeUpVariants}

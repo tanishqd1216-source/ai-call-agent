@@ -8,5 +8,5 @@ export async function logoutAction() {
   const session = await getSession();
   if (session) await apiLogout(session.token);
   await clearSessionCookie();
-  redirect("/erp/login");
+  redirect("/");
 }

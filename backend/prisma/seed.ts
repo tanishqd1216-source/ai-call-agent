@@ -28,13 +28,16 @@ async function main() {
   });
 
   const departments = [
-    { slug: "sales", name: "Sales", sortOrder: 0, agents: ["Inbound Sales Agent"] },
-    { slug: "hr", name: "HR", sortOrder: 1, agents: ["HR Helpdesk Agent"] },
+    { slug: "sales", name: "Sales", sortOrder: 0, agents: [{ name: "Inbound Sales Agent" }] },
+    { slug: "hr", name: "HR", sortOrder: 1, agents: [{ name: "HR Helpdesk Agent" }] },
     {
       slug: "customer-support",
       name: "Customer Support",
       sortOrder: 2,
-      agents: ["Inbound Support Agent", "Refund Agent"],
+      agents: [
+        { name: "Inbound Agent", launchUrl: "/inbound" },
+        { name: "Outbound Agent", launchUrl: "/outbound" },
+      ],
     },
   ];
 
@@ -45,15 +48,16 @@ async function main() {
       create: { slug: dept.slug, name: dept.name, sortOrder: dept.sortOrder },
     });
 
-    for (const [index, name] of dept.agents.entries()) {
+    for (const [index, agent] of dept.agents.entries()) {
       const existing = await prisma.agent.findFirst({
-        where: { departmentId: department.id, name },
+        where: { departmentId: department.id, name: agent.name },
       });
+      const launchUrl = agent.launchUrl ?? null;
       if (existing) {
-        await prisma.agent.update({ where: { id: existing.id }, data: { sortOrder: index } });
+        await prisma.agent.update({ where: { id: existing.id }, data: { sortOrder: index, launchUrl } });
       } else {
         await prisma.agent.create({
-          data: { name, departmentId: department.id, sortOrder: index },
+          data: { name: agent.name, departmentId: department.id, sortOrder: index, launchUrl },
         });
       }
     }

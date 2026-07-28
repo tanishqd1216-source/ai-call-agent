@@ -1,45 +1,71 @@
 import Link from "next/link";
 import type { ErpSession } from "@/lib/auth";
+import type { DepartmentDetail } from "@/lib/erp-api";
 import { logoutAction } from "@/app/erp/logout/actions";
 import { SidebarNav } from "@/components/layout/SidebarNav";
+import { MobileNavDrawer } from "@/components/layout/MobileNavDrawer";
 
-export function Sidebar({ session }: { session: ErpSession | null }) {
+export function Sidebar({
+  session,
+  departments,
+}: {
+  session: ErpSession | null;
+  departments: DepartmentDetail[];
+}) {
   return (
-    <aside className="w-64 shrink-0 border-r border-sidebar-border bg-sidebar text-sidebar-foreground flex flex-col fixed inset-y-0 left-0 hidden md:flex">
-      <div className="flex items-center gap-3 px-5 py-5">
-        <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground font-semibold text-sm">
-          V
-        </span>
-        <Link href="/erp" className="font-semibold tracking-tight text-sm">
-          Vetic Voice Agent
+    <header className="fixed top-0 inset-x-0 z-40 h-16 border-b border-sidebar-border bg-sidebar text-sidebar-foreground">
+      {/* Mobile: hamburger + drawer, horizontal bar doesn't fit this content on small screens */}
+      <div className="flex md:hidden h-full items-center gap-3 px-4">
+        <MobileNavDrawer
+          departments={departments}
+          session={session}
+          showMarketingMenus={false}
+          showBookDemo={false}
+        />
+        <Link href="/erp" className="flex items-center gap-2">
+          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground font-semibold text-sm">
+            M
+          </span>
+          <span className="font-semibold tracking-tight text-sm">Meridian</span>
         </Link>
       </div>
 
-      <div className="flex-1 px-3">
-        <SidebarNav />
-      </div>
+      {/* Desktop: full horizontal bar */}
+      <div className="hidden md:flex h-full px-4 md:px-6 items-center gap-3 md:gap-4">
+        <Link href="/erp" className="flex items-center gap-3 shrink-0">
+          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground font-semibold text-sm">
+            M
+          </span>
+          <span className="font-semibold tracking-tight text-sm">Meridian</span>
+        </Link>
 
-      {session && (
-        <div className="border-t border-sidebar-border px-5 py-4 flex flex-col gap-2">
-          <div>
-            <div className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
-              Company
+        {session && (
+          <>
+            <div className="h-6 w-px bg-sidebar-border shrink-0" />
+            <div className="shrink-0 leading-tight">
+              <div className="text-[10px] font-medium text-muted-foreground uppercase tracking-wide">
+                Company
+              </div>
+              <div className="text-lg font-bold tracking-tight">{session.company.name}</div>
             </div>
-            <div className="text-sm font-semibold tracking-tight">{session.company.name}</div>
-          </div>
-          <div className="text-xs text-muted-foreground">
-            {session.user.name ?? session.user.email}
-          </div>
-          <form action={logoutAction}>
-            <button
-              type="submit"
-              className="w-full text-sm rounded-lg border border-sidebar-border px-3 py-1.5 hover:bg-sidebar-accent transition-colors"
-            >
-              Log out
-            </button>
-          </form>
+          </>
+        )}
+
+        <SidebarNav departments={departments} />
+
+        <div className="ml-auto flex items-center gap-3 shrink-0">
+          {session && (
+            <form action={logoutAction}>
+              <button
+                type="submit"
+                className="text-sm rounded-lg border border-sidebar-border px-3 py-1.5 hover:bg-sidebar-accent transition-colors whitespace-nowrap"
+              >
+                Log out
+              </button>
+            </form>
+          )}
         </div>
-      )}
-    </aside>
+      </div>
+    </header>
   );
 }

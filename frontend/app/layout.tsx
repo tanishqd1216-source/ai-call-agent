@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Vetic Voice Agent Dashboard",
-  description: "Call history and observability for the Vetic Voice Agent",
+  title: "Meridian",
+  description: "AI agents for sales, support, and marketing — deployed across your teams.",
 };
 
 export default function RootLayout({

@@ -19,6 +19,7 @@ export type Agent = {
   id: string;
   name: string;
   description: string | null;
+  launchUrl: string | null;
 };
 
 export type DepartmentDetail = {
@@ -80,4 +81,12 @@ export async function getDepartmentAgents(
   if (res.status === 404) return null;
   if (!res.ok) throw new Error(`Failed to load department agents (${res.status})`);
   return res.json();
+}
+
+export async function listDepartmentsWithAgents(token: string): Promise<DepartmentDetail[]> {
+  const departments = await listDepartments(token);
+  const details = await Promise.all(
+    departments.map((department) => getDepartmentAgents(token, department.id)),
+  );
+  return details.filter((d): d is DepartmentDetail => d !== null);
 }
