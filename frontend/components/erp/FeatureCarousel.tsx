@@ -86,24 +86,39 @@ export function FeatureCarousel() {
 
   return (
     <>
-      {/* Desktop: pinned section, stacked cards scrubbed against real scroll */}
+      {/* Desktop: pinned section, stacked cards scrubbed against real scroll.
+          The sticky wrapper is exactly h-screen/top-0 (not the glass panel's
+          own, much smaller, fixed height) — position:sticky only releases
+          once its OWN rendered box runs out of room in its parent, and that
+          box's height has to equal the viewport for the release point to
+          land exactly where scrollYProgress reports "fully scrolled
+          through". With a fixed pixel sticky height instead, the release
+          point drifts with the visitor's actual window height: on a short
+          enough viewport it fires before the last card even finishes
+          revealing, which read as the card "going out of screen" / a gap of
+          empty space before Use Cases. The visible glass panel is now
+          centered inside the full-height wrapper instead of being the
+          sticky element itself, so its release point is viewport-exact
+          regardless of window size. */}
       <div
         ref={containerRef}
         className="relative hidden md:block"
-        style={{ height: `calc(${SCROLL_RUN_VH * MAX_PROGRESS}vh + ${stickyHeight}px)` }}
+        style={{ height: `calc(${SCROLL_RUN_VH * MAX_PROGRESS}vh + 100vh)` }}
       >
-        <div
-          className="sticky top-16 overflow-hidden rounded-2xl border border-white/10 bg-white/5 shadow-2xl backdrop-blur-md"
-          style={{ height: stickyHeight, padding: PANEL_PADDING }}
-        >
-          <div className="relative h-full">
-            {SLIDES.map((Slide, i) => (
-              <StackedCard key={i} index={i} progress={progress} Slide={Slide} />
-            ))}
-            <div className="pointer-events-none absolute inset-x-0 bottom-3 z-20 flex items-center justify-center gap-2">
-              {SLIDES.map((_, i) => (
-                <ProgressDot key={i} index={i} progress={progress} />
+        <div className="sticky top-0 flex h-screen items-center justify-center">
+          <div
+            className="w-full overflow-hidden rounded-2xl border border-white/10 bg-white/5 shadow-2xl backdrop-blur-md"
+            style={{ height: stickyHeight, padding: PANEL_PADDING }}
+          >
+            <div className="relative h-full">
+              {SLIDES.map((Slide, i) => (
+                <StackedCard key={i} index={i} progress={progress} Slide={Slide} />
               ))}
+              <div className="pointer-events-none absolute inset-x-0 bottom-3 z-20 flex items-center justify-center gap-2">
+                {SLIDES.map((_, i) => (
+                  <ProgressDot key={i} index={i} progress={progress} />
+                ))}
+              </div>
             </div>
           </div>
         </div>
