@@ -105,7 +105,7 @@ const BADGE_CLASSES: Record<(typeof USE_CASES)[number]["color"], string> = {
 export function UseCasesGrid() {
   return (
     <section className="py-20 px-6 border-t border-border">
-      <div className="mx-auto max-w-5xl">
+      <div className="mx-auto max-w-7xl">
         <div className="mx-auto max-w-2xl text-center">
           <div className="text-xs font-semibold tracking-widest text-primary uppercase">Use Cases</div>
           <h2 className="mt-3 text-2xl md:text-3xl font-bold tracking-tight text-gradient-heading">

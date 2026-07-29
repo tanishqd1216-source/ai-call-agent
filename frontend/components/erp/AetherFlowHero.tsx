@@ -176,8 +176,11 @@ export function AetherFlowHero({ eyebrow, title, subtitle, children }: AetherFlo
   }, []);
 
   return (
-    <div className="relative min-h-screen w-full flex flex-col items-center justify-center overflow-hidden px-4 py-16 pt-16">
-      <canvas ref={canvasRef} className="absolute top-0 left-0 w-full h-full" />
+    <div className="relative min-h-screen w-full flex flex-col items-center justify-center px-4 py-16 pt-16">
+      {/* Fixed (not absolute) so this same particle canvas stays put behind the
+          whole page — hero and everything scrolled past it — instead of being
+          clipped to just this section's height. */}
+      <canvas ref={canvasRef} className="fixed inset-0 -z-10 h-full w-full pointer-events-none" />
 
       {eyebrow && (
         <motion.div

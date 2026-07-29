@@ -1,5 +1,4 @@
 import { requireSession } from "@/lib/auth";
-import { FeatureCarousel } from "@/components/erp/FeatureCarousel";
 
 export default async function ErpDashboardPage() {
   await requireSession();
@@ -16,10 +15,6 @@ export default async function ErpDashboardPage() {
             <p className="text-sm text-muted-foreground">
               Pick a department from the sidebar to see its agents and launch a console.
             </p>
-          </div>
-
-          <div className="rounded-2xl border border-border bg-surface ring-1 ring-white/5 shadow-2xl p-8 md:p-12 overflow-hidden">
-            <FeatureCarousel />
           </div>
         </div>
       </div>
