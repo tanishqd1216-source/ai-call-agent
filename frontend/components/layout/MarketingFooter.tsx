@@ -60,7 +60,8 @@ const SOCIAL_LINKS = [
 
 export function MarketingFooter() {
   return (
-    <footer className="border-t border-sidebar-border bg-sidebar text-sidebar-foreground">
+    <footer className="relative bg-sidebar text-sidebar-foreground">
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-sidebar-border to-transparent" />
       <div className="mx-auto max-w-6xl px-4 py-16 md:px-6">
         <div className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 lg:grid-cols-5">
           <FooterColumn menu={AGENTS} />
