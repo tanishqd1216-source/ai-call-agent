@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { MotionProvider } from "@/components/providers/MotionProvider";
+import { ScrollProgressBar } from "@/components/layout/ScrollProgressBar";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -47,7 +48,10 @@ export default function RootLayout({
       className={`dark ${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <MotionProvider>{children}</MotionProvider>
+        <MotionProvider>
+          <ScrollProgressBar />
+          {children}
+        </MotionProvider>
       </body>
     </html>
   );
