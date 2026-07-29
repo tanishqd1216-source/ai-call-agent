@@ -1,10 +1,10 @@
 "use client";
 
 import type { ReactNode } from "react";
-import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
 import { Check } from "lucide-react";
 import { MarketingHeader } from "@/components/layout/MarketingHeader";
+import { MarketingFooter } from "@/components/layout/MarketingFooter";
 
 // `icon` is a pre-rendered element (e.g. `<Zap className="h-5 w-5" />`), not a
 // component reference — component types can't cross the Server/Client
@@ -284,12 +284,7 @@ export function AgentLandingPage({
         </div>
       </RevealSection>
 
-      <footer className="py-8 px-6 border-t border-border text-center text-xs text-muted-foreground">
-        <Link href="/" className="hover:text-foreground transition-colors">
-          Meridian
-        </Link>
-        {" — © 2026. All rights reserved."}
-      </footer>
+      <MarketingFooter />
     </div>
   );
 }

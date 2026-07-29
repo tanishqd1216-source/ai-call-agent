@@ -3,6 +3,9 @@ import { getSession } from "@/lib/auth";
 import { AetherFlowHero } from "@/components/erp/AetherFlowHero";
 import { LoginForm } from "@/components/erp/LoginForm";
 import { MarketingHeader } from "@/components/layout/MarketingHeader";
+import { MarketingFooter } from "@/components/layout/MarketingFooter";
+import { FeatureCarousel } from "@/components/erp/FeatureCarousel";
+import { UseCasesGrid } from "@/components/marketing/UseCasesGrid";
 
 export default async function RootPage() {
   const session = await getSession();
@@ -19,6 +22,26 @@ export default async function RootPage() {
           <LoginForm />
         </div>
       </AetherFlowHero>
+
+      <section className="relative px-4 pb-24">
+        <div className="mx-auto max-w-5xl">
+          <div className="mb-10 text-center">
+            <h2 className="text-3xl font-bold tracking-tight text-gradient-heading">
+              AI agents built for every stage of the conversation
+            </h2>
+            <p className="mx-auto mt-3 max-w-2xl text-gray-400">
+              From the first hello to the final follow-up — Meridian&apos;s agents carry the
+              conversation, assist your team in real time, and turn every call into a
+              data-backed action.
+            </p>
+          </div>
+          <FeatureCarousel />
+        </div>
+      </section>
+
+      <UseCasesGrid />
+
+      <MarketingFooter />
     </>
   );
 }

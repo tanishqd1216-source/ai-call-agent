@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
 import { Lock, MessagesSquare, Target, Users } from "lucide-react";
 import { MarketingHeader } from "@/components/layout/MarketingHeader";
+import { MarketingFooter } from "@/components/layout/MarketingFooter";
 
 const sectionVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
@@ -176,12 +176,7 @@ export default function AboutUsPage() {
         </div>
       </RevealSection>
 
-      <footer className="py-8 px-6 border-t border-border text-center text-xs text-muted-foreground">
-        <Link href="/" className="hover:text-foreground transition-colors">
-          Meridian
-        </Link>
-        {" — © 2026. All rights reserved."}
-      </footer>
+      <MarketingFooter />
     </div>
   );
 }

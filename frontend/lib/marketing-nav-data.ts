@@ -135,24 +135,11 @@ const DEVELOPERS_CATEGORIES: Category[] = [
   },
 ];
 
-const RESOURCES_CATEGORIES: Category[] = [
-  {
-    name: "Learn",
-    description: "Guides, definitions, and deep dives into conversational AI.",
-    items: ["Blogs", "Glossary"],
-  },
-  {
-    name: "Proof",
-    description: "Real results from real customers, plus the latest company news.",
-    items: ["Success Stories", "Newsroom"],
-  },
-];
-
 const COMPANY_CATEGORIES: Category[] = [
   {
     name: "Company",
     description: "Who we are, and how to reach us.",
-    items: [{ name: "About Us", href: "/company/about-us" }, "Contact"],
+    items: [{ name: "About Us", href: "/company/about-us" }],
   },
 ];
 
@@ -164,6 +151,5 @@ export const MARKETING_MENUS: MarketingMenu[] = [
   { label: "Industries", categories: INDUSTRIES_CATEGORIES },
   { label: "Use Cases", categories: USE_CASES_CATEGORIES },
   { label: "Developers", categories: DEVELOPERS_CATEGORIES },
-  { label: "Resources", categories: RESOURCES_CATEGORIES },
   { label: "Company", categories: COMPANY_CATEGORIES },
 ];
