@@ -133,22 +133,32 @@ export function AetherFlowHero({ eyebrow, title, subtitle, children }: AetherFlo
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    let animationFrameId: number;
+    // Respect the OS-level "reduce motion" preference: render one static
+    // frame and skip the continuous particle animation + mouse tracking.
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    let animationFrameId: number | null = null;
     let particles: Particle[] = [];
+    let resizeTimeout: ReturnType<typeof setTimeout>;
     const mouse: MouseState = { x: null, y: null, radius: 200 };
+
+    const renderFrame = () => {
+      ctx.fillStyle = "black";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      for (const particle of particles) particle.update(canvas, ctx, mouse);
+      connectParticles(ctx, canvas, particles, mouse);
+    };
 
     const resizeCanvas = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
       particles = initParticles(canvas);
+      if (prefersReducedMotion) renderFrame();
     };
 
     const animate = () => {
       animationFrameId = requestAnimationFrame(animate);
-      ctx.fillStyle = "black";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      for (const particle of particles) particle.update(canvas, ctx, mouse);
-      connectParticles(ctx, canvas, particles, mouse);
+      renderFrame();
     };
 
     const handleMouseMove = (event: MouseEvent) => {
@@ -161,17 +171,44 @@ export function AetherFlowHero({ eyebrow, title, subtitle, children }: AetherFlo
       mouse.y = null;
     };
 
-    window.addEventListener("resize", resizeCanvas);
-    window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("mouseout", handleMouseOut);
+    // Coalesce resize-driven reinitialization instead of rebuilding the
+    // whole particle array on every intermediate resize event.
+    const handleResize = () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(resizeCanvas, 150);
+    };
+
+    // Stop paying for rAF + full-canvas redraws while the tab isn't visible.
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        if (animationFrameId !== null) {
+          cancelAnimationFrame(animationFrameId);
+          animationFrameId = null;
+        }
+      } else if (!prefersReducedMotion && animationFrameId === null) {
+        animate();
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
     resizeCanvas();
-    animate();
+
+    if (prefersReducedMotion) {
+      renderFrame();
+    } else {
+      window.addEventListener("mousemove", handleMouseMove);
+      window.addEventListener("mouseout", handleMouseOut);
+      animate();
+    }
 
     return () => {
-      window.removeEventListener("resize", resizeCanvas);
+      window.removeEventListener("resize", handleResize);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseout", handleMouseOut);
-      cancelAnimationFrame(animationFrameId);
+      clearTimeout(resizeTimeout);
+      if (animationFrameId !== null) cancelAnimationFrame(animationFrameId);
     };
   }, []);
 
