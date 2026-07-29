@@ -24,15 +24,21 @@ export default async function RootPage() {
         </div>
       </AetherFlowHero>
 
-      {/* overflow-x-hidden only (not the overflow-hidden shorthand) — the
-          glow blobs bleed past the section's left/right edges and just
-          need horizontal clipping. Clipping the y-axis too breaks
-          FeatureCarousel's internal position:sticky scroll-jack, since any
-          ancestor with overflow other than visible on either axis moves
-          sticky's containing scrollport off the real viewport. */}
-      <section className="relative overflow-x-hidden px-4 pb-24">
-        <AmbientGlow className="-top-20 -left-32 h-[420px] w-[420px]" />
-        <AmbientGlow className="top-40 -right-32 h-[380px] w-[380px]" />
+      {/* No overflow property on this <section> at all — it's an ancestor of
+          FeatureCarousel, which relies on position:sticky against the real
+          viewport. Per the CSS Overflow spec, setting overflow-x to
+          anything other than visible/clip forces the computed overflow-y
+          to auto (not visible) — confirmed empirically via devtools on this
+          exact element — and `auto` still establishes a scroll container
+          that breaks sticky just as much as `hidden` would. The glow blobs
+          bleed past the section's edges and need horizontal clipping, so
+          that clip is scoped to the sibling wrapper below instead, which
+          isn't part of FeatureCarousel's ancestor chain. */}
+      <section className="relative px-4 pb-24">
+        <div className="pointer-events-none absolute inset-0 overflow-x-hidden">
+          <AmbientGlow className="-top-20 -left-32 h-[420px] w-[420px]" />
+          <AmbientGlow className="top-40 -right-32 h-[380px] w-[380px]" />
+        </div>
         <div className="mx-auto max-w-5xl">
           <div className="mb-10 text-center">
             <h2 className="text-3xl font-bold tracking-tight text-gradient-heading">
