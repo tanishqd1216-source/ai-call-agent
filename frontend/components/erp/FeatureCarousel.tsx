@@ -64,6 +64,15 @@ function StackedCard({
   );
 }
 
+// Which of the stacked cards is currently in front, synced to the same
+// scroll-driven `progress` value the cards themselves use.
+function ProgressDot({ index, progress }: { index: number; progress: MotionValue<number> }) {
+  const active = useTransform(progress, (p) => Math.round(clamp(p, 0, MAX_PROGRESS)) === index);
+  const scale = useTransform(() => (active.get() ? 1 : 0.6));
+  const opacity = useTransform(() => (active.get() ? 1 : 0.35));
+  return <motion.span style={{ scale, opacity }} className="h-1.5 w-1.5 rounded-full bg-primary" />;
+}
+
 export function FeatureCarousel() {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -91,6 +100,11 @@ export function FeatureCarousel() {
             {SLIDES.map((Slide, i) => (
               <StackedCard key={i} index={i} progress={progress} Slide={Slide} />
             ))}
+            <div className="pointer-events-none absolute inset-x-0 bottom-3 z-20 flex items-center justify-center gap-2">
+              {SLIDES.map((_, i) => (
+                <ProgressDot key={i} index={i} progress={progress} />
+              ))}
+            </div>
           </div>
         </div>
       </div>
