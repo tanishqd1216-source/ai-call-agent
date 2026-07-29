@@ -6,6 +6,7 @@ import { MarketingHeader } from "@/components/layout/MarketingHeader";
 import { MarketingFooter } from "@/components/layout/MarketingFooter";
 import { FeatureCarousel } from "@/components/erp/FeatureCarousel";
 import { UseCasesGrid } from "@/components/marketing/UseCasesGrid";
+import { AmbientGlow } from "@/components/marketing/AmbientGlow";
 
 export default async function RootPage() {
   const session = await getSession();
@@ -23,7 +24,9 @@ export default async function RootPage() {
         </div>
       </AetherFlowHero>
 
-      <section className="relative px-4 pb-24">
+      <section className="relative overflow-hidden px-4 pb-24">
+        <AmbientGlow className="-top-20 -left-32 h-[420px] w-[420px]" />
+        <AmbientGlow className="top-40 -right-32 h-[380px] w-[380px]" />
         <div className="mx-auto max-w-5xl">
           <div className="mb-10 text-center">
             <h2 className="text-3xl font-bold tracking-tight text-gradient-heading">
