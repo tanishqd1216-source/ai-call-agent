@@ -24,7 +24,13 @@ export default async function RootPage() {
         </div>
       </AetherFlowHero>
 
-      <section className="relative overflow-hidden px-4 pb-24">
+      {/* overflow-x-hidden only (not the overflow-hidden shorthand) — the
+          glow blobs bleed past the section's left/right edges and just
+          need horizontal clipping. Clipping the y-axis too breaks
+          FeatureCarousel's internal position:sticky scroll-jack, since any
+          ancestor with overflow other than visible on either axis moves
+          sticky's containing scrollport off the real viewport. */}
+      <section className="relative overflow-x-hidden px-4 pb-24">
         <AmbientGlow className="-top-20 -left-32 h-[420px] w-[420px]" />
         <AmbientGlow className="top-40 -right-32 h-[380px] w-[380px]" />
         <div className="mx-auto max-w-5xl">
