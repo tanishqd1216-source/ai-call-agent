@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
+import { AmbientGlow } from "@/components/marketing/AmbientGlow";
 import {
   Award,
   MessagesSquare,
@@ -104,7 +105,9 @@ const BADGE_CLASSES: Record<(typeof USE_CASES)[number]["color"], string> = {
 
 export function UseCasesGrid() {
   return (
-    <section className="py-20 px-6 border-t border-border">
+    <section className="relative overflow-hidden py-20 px-6">
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+      <AmbientGlow className="bottom-0 left-1/2 h-[500px] w-[700px] -translate-x-1/2" />
       <div className="mx-auto max-w-7xl">
         <div className="mx-auto max-w-2xl text-center">
           <div className="text-xs font-semibold tracking-widest text-primary uppercase">Use Cases</div>
@@ -127,9 +130,11 @@ export function UseCasesGrid() {
             <motion.div key={title} variants={cardVariants}>
               <Link
                 href={href}
-                className="flex h-full flex-col gap-3 rounded-xl border border-border bg-surface p-5 transition-all duration-200 hover:-translate-y-1 hover:border-primary/30"
+                className="group flex h-full flex-col gap-3 rounded-xl border border-border bg-surface p-5 transition-all duration-200 hover:-translate-y-1 hover:border-primary/30 hover:shadow-[0_0_28px_-8px_rgba(191,128,255,0.35)]"
               >
-                <span className={`flex h-9 w-9 items-center justify-center rounded-lg ${BADGE_CLASSES[color]}`}>
+                <span
+                  className={`flex h-9 w-9 items-center justify-center rounded-lg transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110 ${BADGE_CLASSES[color]}`}
+                >
                   <Icon className="h-4 w-4" />
                 </span>
                 <h3 className="text-sm font-semibold">{title}</h3>
