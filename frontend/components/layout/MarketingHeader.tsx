@@ -15,18 +15,22 @@ export function MarketingHeader({ showLogin = true }: { showLogin?: boolean }) {
         </Link>
       </div>
 
-      {/* Desktop: full horizontal bar */}
-      <div className="relative hidden md:flex h-full px-4 md:px-6 items-center">
+      {/* Desktop: full horizontal bar. The nav sits in a flex-1 middle column
+          (not absolutely centered) so it shares space with the logo and
+          buttons instead of being able to overlap them at narrower desktop
+          widths — it scrolls internally via its own overflow-x-auto if it
+          ever runs out of room. */}
+      <div className="hidden md:flex h-full px-4 md:px-6 items-center gap-4">
         <Link href="/" className="ml-8 md:ml-16 flex items-center gap-2 shrink-0">
           <Zap className="h-6 w-6 text-primary" />
           <span className="text-2xl font-bold tracking-tighter text-gradient-heading">Meridian</span>
         </Link>
 
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+        <div className="flex flex-1 min-w-0 justify-center">
           <MarketingNav align="center" />
         </div>
 
-        <div className="ml-auto flex shrink-0 items-center gap-3">
+        <div className="flex shrink-0 items-center gap-3">
           {showLogin && (
             <Link
               href="/erp/login"
