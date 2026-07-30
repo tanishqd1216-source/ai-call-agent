@@ -111,7 +111,7 @@ export function SidebarNav({ departments }: { departments: DepartmentDetail[] })
             : "text-muted-foreground hover:bg-sidebar-accent hover:text-sidebar-foreground",
         )}
       >
-        Call History
+        Call Summary
       </Link>
     </nav>
   );

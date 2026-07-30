@@ -39,30 +39,29 @@ export function Sidebar({
           <span className="font-semibold tracking-tight text-sm">Meridian</span>
         </Link>
 
-        {session && (
-          <>
-            <div className="h-6 w-px bg-sidebar-border shrink-0" />
-            <div className="shrink-0 leading-tight">
-              <div className="text-[10px] font-medium text-muted-foreground uppercase tracking-wide">
-                Company
-              </div>
-              <div className="text-lg font-bold tracking-tight">{session.company.name}</div>
-            </div>
-          </>
-        )}
+        <div className="h-6 w-px bg-sidebar-border shrink-0" />
 
         <SidebarNav departments={departments} />
 
         <div className="ml-auto flex items-center gap-3 shrink-0">
           {session && (
-            <form action={logoutAction}>
-              <button
-                type="submit"
-                className="text-sm rounded-lg border border-sidebar-border px-3 py-1.5 hover:bg-sidebar-accent transition-colors whitespace-nowrap"
-              >
-                Log out
-              </button>
-            </form>
+            <>
+              <div className="text-right leading-tight">
+                <div className="text-[10px] font-medium text-muted-foreground uppercase tracking-wide">
+                  Company
+                </div>
+                <div className="text-lg font-bold tracking-tight">{session.company.name}</div>
+              </div>
+              <div className="h-6 w-px bg-sidebar-border shrink-0" />
+              <form action={logoutAction}>
+                <button
+                  type="submit"
+                  className="text-sm rounded-lg border border-sidebar-border px-3 py-1.5 hover:bg-sidebar-accent transition-colors whitespace-nowrap"
+                >
+                  Log out
+                </button>
+              </form>
+            </>
           )}
         </div>
       </div>

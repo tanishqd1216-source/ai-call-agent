@@ -139,7 +139,7 @@ export function MobileNavDrawer({
                     : "text-muted-foreground hover:bg-sidebar-accent hover:text-sidebar-foreground",
                 )}
               >
-                Call History
+                Call Summary
               </Link>
 
               <div className="my-3 h-px bg-sidebar-border" />

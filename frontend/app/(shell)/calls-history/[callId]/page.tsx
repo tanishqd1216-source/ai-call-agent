@@ -27,7 +27,7 @@ export default async function CallDetailPage({
         href="/calls-history"
         className="text-sm text-muted-foreground hover:text-foreground w-fit flex items-center gap-1"
       >
-        ← Back to call history
+        ← Back to call summary
       </Link>
 
       <div className="rounded-xl border border-border bg-surface ring-1 ring-white/5 p-4 grid grid-cols-2 sm:grid-cols-4 gap-4">
