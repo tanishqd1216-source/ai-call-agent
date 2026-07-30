@@ -24,7 +24,7 @@ export default async function DashboardPage({
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <h1 className="text-xl font-semibold tracking-tight">Call History</h1>
+        <h1 className="text-xl font-semibold tracking-tight">Call Summary</h1>
         <p className="text-sm text-muted-foreground mt-0.5">
           Observability for every call the voice agent has handled.
         </p>

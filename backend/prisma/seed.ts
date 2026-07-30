@@ -39,6 +39,14 @@ async function main() {
         { name: "Outbound Agent", launchUrl: "/outbound" },
       ],
     },
+    { slug: "marketing", name: "Marketing", sortOrder: 3, agents: [{ name: "Campaign Agent" }] },
+    {
+      slug: "billing-collections",
+      name: "Billing & Collections",
+      sortOrder: 4,
+      agents: [{ name: "Collections Agent" }],
+    },
+    { slug: "onboarding", name: "Onboarding", sortOrder: 5, agents: [{ name: "Onboarding Agent" }] },
   ];
 
   for (const dept of departments) {
