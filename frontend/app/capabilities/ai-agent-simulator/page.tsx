@@ -10,6 +10,14 @@ import {
   Wrench,
 } from "lucide-react";
 import { AgentLandingPage } from "@/components/marketing/AgentLandingPage";
+import {
+  ChecklistItem,
+  FloatingSubCard,
+  HeroPanelFrame,
+  PanelHeader,
+  PanelShell,
+  ScoreBadge,
+} from "@/components/marketing/panels/HeroVisuals";
 
 export default function AIAgentSimulatorCapabilityPage() {
   return (
@@ -18,6 +26,25 @@ export default function AIAgentSimulatorCapabilityPage() {
       headline="Stress-Test Your Agent Before a Single Customer Does"
       subheadline="Run thousands of simulated conversations — including the edge cases you'd never think to script by hand — before any change reaches a real customer."
       trustLine="Built for teams who'd rather find the bug in a simulator than in a live call"
+      heroVisual={
+        <HeroPanelFrame>
+          <PanelShell>
+            <PanelHeader title="Simulation Run #482" status="Complete" />
+            <div className="mt-4">
+              <ScoreBadge value="94%" label="Pass rate across 1,200 scenarios" />
+            </div>
+            <div className="mt-4 flex flex-col gap-2.5">
+              <ChecklistItem label="Frustrated-customer escalation path" />
+              <ChecklistItem label="Required compliance disclosure" />
+              <ChecklistItem label="Ambiguous refund request" done={false} />
+            </div>
+          </PanelShell>
+          <FloatingSubCard position="bottom-left">
+            <div className="text-[10px] text-muted-foreground">Regressions caught</div>
+            <div className="text-sm font-bold text-primary">3</div>
+          </FloatingSubCard>
+        </HeroPanelFrame>
+      }
       problemHeading="Why Changes That Look Fine Still Break in Production"
       problems={[
         {

@@ -7,6 +7,17 @@ import {
   Zap,
 } from "lucide-react";
 import { AgentLandingPage } from "@/components/marketing/AgentLandingPage";
+import {
+  HeroPanelFrame,
+  PanelShell,
+  FloatingSubCard,
+  PanelHeader,
+  ChatBubble,
+  ScoreBadge,
+  ChecklistItem,
+  PipelineStepper,
+  StatTile,
+} from "@/components/marketing/panels/HeroVisuals";
 
 export default function SalesUseCasePage() {
   return (
@@ -15,6 +26,34 @@ export default function SalesUseCasePage() {
       headline="Turn Every Conversation Into a Qualified Deal"
       subheadline="Deploy an AI agent that engages leads the moment they show interest, qualifies them against your criteria, and hands off only the conversations worth a rep's time."
       trustLine="Built for teams who measure pipeline in hours, not weeks"
+      heroVisual={
+        <HeroPanelFrame>
+          <PanelShell>
+            <PanelHeader title="Inbound Lead" status="Live" />
+            <div className="mt-4 flex flex-col gap-3">
+              <ChatBubble from="user" label="Lead">
+                &ldquo;We&apos;re looking to roll this out to our whole support team next quarter.&rdquo;
+              </ChatBubble>
+              <ChatBubble from="agent" label="Agent">
+                &ldquo;Great — how many seats, and what&apos;s driving the Q1 timeline?&rdquo;
+              </ChatBubble>
+            </div>
+            <div className="mt-4">
+              <ScoreBadge value="82 · Qualified" label="Budget, timeline & fit confirmed" />
+            </div>
+            <div className="mt-4 flex flex-col gap-2">
+              <ChecklistItem label="Synced to CRM" />
+              <ChecklistItem label="Rep notified" />
+            </div>
+            <div className="mt-5">
+              <PipelineStepper steps={["New lead", "Qualified intent", "Routed to rep"]} currentIndex={2} />
+            </div>
+          </PanelShell>
+          <FloatingSubCard position="bottom-right">
+            <StatTile value="2 min" label="Time to first response" />
+          </FloatingSubCard>
+        </HeroPanelFrame>
+      }
       problemHeading="Why Most Sales Follow-Up Falls Through"
       problems={[
         {

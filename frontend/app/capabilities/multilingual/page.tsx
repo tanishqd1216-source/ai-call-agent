@@ -11,6 +11,13 @@ import {
   Users,
 } from "lucide-react";
 import { AgentLandingPage } from "@/components/marketing/AgentLandingPage";
+import {
+  ChatBubble,
+  FloatingSubCard,
+  HeroPanelFrame,
+  PanelHeader,
+  PanelShell,
+} from "@/components/marketing/panels/HeroVisuals";
 
 export default function MultilingualCapabilityPage() {
   return (
@@ -19,6 +26,28 @@ export default function MultilingualCapabilityPage() {
       headline="The Same Quality Conversation, in Whatever Language the Customer Speaks"
       subheadline="Detect a customer's language automatically and respond fluently — without hiring a separate team, building a separate flow, or lowering quality for anyone."
       trustLine="Built for teams who serve customers in more languages than they have native-speaking reps for"
+      heroVisual={
+        <HeroPanelFrame>
+          <PanelShell>
+            <PanelHeader title="Live Conversation" status="Auto-detected" />
+            <div className="mt-4 flex flex-col gap-3">
+              <ChatBubble from="user" label="English">
+                Can I move my appointment to Friday?
+              </ChatBubble>
+              <ChatBubble from="user" label="Hindi">
+                Kya main apni appointment Friday ko shift kar sakta hoon?
+              </ChatBubble>
+              <ChatBubble from="agent">
+                Of course — I&apos;ve moved it to Friday at 4 PM.
+              </ChatBubble>
+            </div>
+          </PanelShell>
+          <FloatingSubCard position="bottom-right">
+            <div className="text-[10px] text-muted-foreground">Quality gap between languages</div>
+            <div className="text-sm font-bold text-primary">0%</div>
+          </FloatingSubCard>
+        </HeroPanelFrame>
+      }
       problemHeading="Why Language Coverage Usually Comes at a Cost"
       problems={[
         {

@@ -11,6 +11,14 @@ import {
   Workflow,
 } from "lucide-react";
 import { AgentLandingPage } from "@/components/marketing/AgentLandingPage";
+import {
+  ChecklistItem,
+  FloatingSubCard,
+  HeroPanelFrame,
+  PanelHeader,
+  PanelShell,
+  StatTile,
+} from "@/components/marketing/panels/HeroVisuals";
 
 export default function CommandLineInterfacePage() {
   return (
@@ -19,6 +27,33 @@ export default function CommandLineInterfacePage() {
       headline="Manage Every Agent From a Terminal, Not a Ticket Queue"
       subheadline="Deploy, configure, and roll back agents with a single CLI — built for engineering teams who'd rather script a change than click through a dashboard five times."
       trustLine="Built for teams who put infrastructure in version control, not a UI"
+      heroVisual={
+        <HeroPanelFrame>
+          <PanelShell>
+            <PanelHeader title="Terminal" status="Connected" />
+            <div className="mt-4 rounded-lg border border-border bg-background/60 p-4 font-mono text-xs leading-relaxed">
+              <div>
+                <span className="text-primary">$</span>{" "}
+                <span className="text-foreground">meridian agents deploy voice-support</span>
+              </div>
+              <div className="text-muted-foreground">✓ Deployed to production (2.3s)</div>
+              <div className="mt-2">
+                <span className="text-primary">$</span>{" "}
+                <span className="text-foreground">meridian logs --tail</span>
+              </div>
+              <div className="text-muted-foreground">[14:02:11] call.started session=8f2a41</div>
+              <div className="text-muted-foreground">[14:02:14] intent.matched confidence=0.97</div>
+            </div>
+            <div className="mt-4 grid grid-cols-2 gap-3">
+              <StatTile value="1 command" label="To deploy or roll back" />
+              <StatTile value="100%" label="Dashboard feature parity" />
+            </div>
+          </PanelShell>
+          <FloatingSubCard position="bottom-right">
+            <ChecklistItem label="Config in version control" />
+          </FloatingSubCard>
+        </HeroPanelFrame>
+      }
       problemHeading="Why Dashboard-Only Config Doesn't Scale for Engineering Teams"
       problems={[
         {

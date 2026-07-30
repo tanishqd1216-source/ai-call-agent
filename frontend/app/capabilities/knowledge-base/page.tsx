@@ -12,6 +12,14 @@ import {
   Zap,
 } from "lucide-react";
 import { AgentLandingPage } from "@/components/marketing/AgentLandingPage";
+import {
+  ChatBubble,
+  FileTypeIcon,
+  HeroPanelFrame,
+  PanelHeader,
+  PanelShell,
+  StatTile,
+} from "@/components/marketing/panels/HeroVisuals";
 
 export default function KnowledgeBaseCapabilityPage() {
   return (
@@ -20,6 +28,26 @@ export default function KnowledgeBaseCapabilityPage() {
       headline="Answers Grounded in Your Actual Docs, Not a Guess"
       subheadline="Connect your help center, policies, and internal docs so every answer the agent gives is grounded in what your business actually says — updated the moment your docs change."
       trustLine="Built for teams tired of correcting confidently wrong answers"
+      heroVisual={
+        <HeroPanelFrame>
+          <PanelShell>
+            <PanelHeader title="Knowledge Base" status="Synced 2m ago" />
+            <div className="mt-4 flex gap-2">
+              <FileTypeIcon label="PDF" colorClass="bg-red-500/15 text-red-400" />
+              <FileTypeIcon label="DOC" colorClass="bg-blue-500/15 text-blue-400" />
+              <FileTypeIcon label="XLS" colorClass="bg-emerald-500/15 text-emerald-400" />
+            </div>
+            <div className="mt-4">
+              <ChatBubble from="agent" label="Source: Refund Policy.pdf, p.2">
+                Refunds are processed within 3 business days for orders under $50.
+              </ChatBubble>
+            </div>
+            <div className="mt-4">
+              <StatTile value="100%" label="Answers traceable to a source" />
+            </div>
+          </PanelShell>
+        </HeroPanelFrame>
+      }
       problemHeading="Why Generic Answers Keep Getting Corrected"
       problems={[
         {

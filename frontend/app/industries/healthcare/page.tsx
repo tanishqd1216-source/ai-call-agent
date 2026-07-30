@@ -9,6 +9,14 @@ import {
   Umbrella,
 } from "lucide-react";
 import { AgentLandingPage } from "@/components/marketing/AgentLandingPage";
+import {
+  HeroPanelFrame,
+  PanelShell,
+  FloatingSubCard,
+  PanelHeader,
+  ChecklistItem,
+  ScoreBadge,
+} from "@/components/marketing/panels/HeroVisuals";
 
 export default function HealthcareIndustryPage() {
   return (
@@ -17,6 +25,25 @@ export default function HealthcareIndustryPage() {
       headline="Every Patient Gets a Calm, Accurate Answer, Every Time"
       subheadline="Schedule appointments, handle prescription refill requests, and answer routine patient questions — with the patience and accuracy healthcare conversations actually require."
       trustLine="Built for practices where a rushed answer isn't acceptable"
+      heroVisual={
+        <HeroPanelFrame>
+          <PanelShell>
+            <PanelHeader title="Patient Intake" status="In progress" />
+            <div className="mt-4 space-y-2">
+              <ChecklistItem label="Fever: none reported" />
+              <ChecklistItem label="Pain level: 2/10" />
+              <ChecklistItem label="Allergies confirmed: none" />
+            </div>
+            <div className="mt-4 border-t border-border pt-4">
+              <ScoreBadge value="Routine" label="Urgency level" />
+            </div>
+          </PanelShell>
+          <FloatingSubCard position="bottom-right">
+            <div className="text-[10px] text-muted-foreground">Follow-up</div>
+            <div className="text-xs font-semibold text-foreground/90">Aug 4, 9:00 AM</div>
+          </FloatingSubCard>
+        </HeroPanelFrame>
+      }
       problemHeading="Why Routine Calls Crowd Out Urgent Care"
       problems={[
         {

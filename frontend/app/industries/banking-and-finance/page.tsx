@@ -10,6 +10,15 @@ import {
   Wallet,
 } from "lucide-react";
 import { AgentLandingPage } from "@/components/marketing/AgentLandingPage";
+import {
+  HeroPanelFrame,
+  PanelShell,
+  FloatingSubCard,
+  PanelHeader,
+  ScoreBadge,
+  ChecklistItem,
+  StatTile,
+} from "@/components/marketing/panels/HeroVisuals";
 
 export default function BankingAndFinanceIndustryPage() {
   return (
@@ -18,6 +27,29 @@ export default function BankingAndFinanceIndustryPage() {
       headline="Secure Conversations That Move as Fast as Money Does"
       subheadline="Handle account questions, fraud alerts, and loan status updates with bank-grade verification — without making every customer wait on hold to check a balance."
       trustLine="Built for institutions where a compliance misstep isn't an option"
+      heroVisual={
+        <HeroPanelFrame>
+          <PanelShell>
+            <PanelHeader title="Transaction Review" status="Live" />
+            <div className="mt-4 flex items-center justify-between gap-3">
+              <div>
+                <div className="text-sm font-semibold text-foreground/90">$1,240.00</div>
+                <div className="mt-0.5 text-[10px] text-muted-foreground">
+                  Card ending 4471 · BestBuy.com
+                </div>
+              </div>
+              <ScoreBadge value="Low" label="Risk score" />
+            </div>
+            <div className="mt-4 space-y-2 border-t border-border pt-4">
+              <ChecklistItem label="Identity verified in 18 seconds" />
+              <ChecklistItem label="Cardholder confirmed transaction" />
+            </div>
+          </PanelShell>
+          <FloatingSubCard position="bottom-right">
+            <StatTile value="<30s" label="Avg. verification time" />
+          </FloatingSubCard>
+        </HeroPanelFrame>
+      }
       problemHeading="Why Security and Speed Usually Trade Off"
       problems={[
         {

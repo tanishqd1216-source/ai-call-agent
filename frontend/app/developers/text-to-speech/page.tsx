@@ -1,4 +1,5 @@
 import {
+  ArrowDown,
   Ear,
   Globe,
   Mic,
@@ -11,6 +12,17 @@ import {
   Volume2,
 } from "lucide-react";
 import { AgentLandingPage } from "@/components/marketing/AgentLandingPage";
+import {
+  ChatBubble,
+  FloatingSubCard,
+  HeroPanelFrame,
+  PanelHeader,
+  PanelShell,
+  ScoreBadge,
+  StatTile,
+} from "@/components/marketing/panels/HeroVisuals";
+
+const TTS_WAVEFORM_HEIGHTS = [10, 18, 24, 14, 28, 16, 22, 12, 20, 8, 26, 14, 18, 10, 24, 16];
 
 export default function TextToSpeechPage() {
   return (
@@ -19,6 +31,35 @@ export default function TextToSpeechPage() {
       headline="A Voice That Doesn't Sound Like It's Reading a Script"
       subheadline="Natural, low-latency speech synthesis that keeps a conversation feeling human — with custom voice and brand tone options when you need them."
       trustLine="Built so customers forget they're talking to software"
+      heroVisual={
+        <HeroPanelFrame>
+          <PanelShell>
+            <PanelHeader title="Speech Synthesis" status="Generating" />
+            <ChatBubble from="agent" label="Input text">
+              &ldquo;Your appointment is confirmed for 4:30 PM tomorrow.&rdquo;
+            </ChatBubble>
+            <div className="mt-3 flex items-center justify-center">
+              <ArrowDown className="h-4 w-4 text-muted-foreground" />
+            </div>
+            <div className="mt-1 flex h-12 items-end gap-[3px]">
+              {TTS_WAVEFORM_HEIGHTS.map((h, i) => (
+                <div
+                  key={i}
+                  className={`w-1 rounded-full ${i % 2 === 0 ? "bg-primary" : "bg-primary/40"}`}
+                  style={{ height: `${h}px` }}
+                />
+              ))}
+            </div>
+            <div className="mt-4 grid grid-cols-2 gap-3">
+              <StatTile value="<200ms" label="Time to first audio byte" />
+              <StatTile value="30+" label="Languages supported" />
+            </div>
+          </PanelShell>
+          <FloatingSubCard position="bottom-right">
+            <ScoreBadge value="Custom" label="Brand voice" />
+          </FloatingSubCard>
+        </HeroPanelFrame>
+      }
       problemHeading="Why Synthetic Speech Usually Gives Itself Away"
       problems={[
         {

@@ -1,9 +1,12 @@
 import {
+  CheckCircle2,
   Code2,
   EyeOff,
   FlaskConical,
+  GitBranch,
   History,
   MessagesSquare,
+  Play,
   ShieldCheck,
   Smile,
   Users,
@@ -11,6 +14,14 @@ import {
   Zap,
 } from "lucide-react";
 import { AgentLandingPage } from "@/components/marketing/AgentLandingPage";
+import {
+  FloatingSubCard,
+  FlowConnector,
+  FlowNode,
+  HeroPanelFrame,
+  PanelHeader,
+  PanelShell,
+} from "@/components/marketing/panels/HeroVisuals";
 
 export default function AIAgentStudioCapabilityPage() {
   return (
@@ -19,6 +30,26 @@ export default function AIAgentStudioCapabilityPage() {
       headline="Design Your Agent's Behavior Without Writing a Line of Code"
       subheadline="Build prompts, conversation flows, and personas visually — then publish changes in minutes instead of waiting on an engineering sprint."
       trustLine="Built for ops and CX teams who own the agent, not just the engineers who shipped it"
+      heroVisual={
+        <HeroPanelFrame>
+          <PanelShell>
+            <PanelHeader title="Flow Builder" status="Draft · Unpublished" />
+            <div className="mt-4 flex flex-col gap-1">
+              <FlowNode icon={<Play className="h-3.5 w-3.5" />} title="Start" subtitle="Customer says 'cancel my order'" />
+              <FlowConnector label="if" />
+              <FlowNode icon={<GitBranch className="h-3.5 w-3.5" />} title="Condition" subtitle="Order placed under 24h ago" />
+              <FlowConnector label="then" />
+              <FlowNode icon={<Zap className="h-3.5 w-3.5" />} title="Action" subtitle="Cancel order & confirm" active />
+            </div>
+          </PanelShell>
+          <FloatingSubCard position="bottom-right">
+            <div className="flex items-center gap-1.5 text-xs font-semibold text-primary">
+              <CheckCircle2 className="h-3.5 w-3.5" /> Quality Analysis
+            </div>
+            <div className="mt-0.5 text-[10px] text-muted-foreground">Passed · 0 guardrail violations</div>
+          </FloatingSubCard>
+        </HeroPanelFrame>
+      }
       problemHeading="Why Small Changes Take Weeks Instead of Minutes"
       problems={[
         {

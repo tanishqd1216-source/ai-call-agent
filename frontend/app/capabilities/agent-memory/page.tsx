@@ -12,6 +12,14 @@ import {
   Wrench,
 } from "lucide-react";
 import { AgentLandingPage } from "@/components/marketing/AgentLandingPage";
+import {
+  ChecklistItem,
+  FloatingSubCard,
+  HeroPanelFrame,
+  PanelHeader,
+  PanelShell,
+  StatTile,
+} from "@/components/marketing/panels/HeroVisuals";
 
 export default function AgentMemoryCapabilityPage() {
   return (
@@ -20,6 +28,25 @@ export default function AgentMemoryCapabilityPage() {
       headline="An Agent That Remembers the Last Conversation, Not Just the Last Message"
       subheadline="Preferences, prior commitments, and how a conversation ended all carry forward automatically — so every follow-up picks up exactly where the last one left off."
       trustLine="Built so customers never have to say 'like I told you last time' again"
+      heroVisual={
+        <HeroPanelFrame>
+          <PanelShell>
+            <PanelHeader title="Customer Memory" status="Returning customer" />
+            <div className="mt-4 flex flex-col gap-2.5">
+              <ChecklistItem label="Prefers email over phone calls" />
+              <ChecklistItem label="Asked about a billing issue on Jun 12" />
+              <ChecklistItem label="Callback promised for this Friday" />
+            </div>
+            <div className="mt-4">
+              <StatTile value="3 yrs" label="Relationship history retained" />
+            </div>
+          </PanelShell>
+          <FloatingSubCard position="top-right">
+            <div className="text-[10px] text-muted-foreground">Repeat contacts</div>
+            <div className="text-sm font-bold text-primary">-35%</div>
+          </FloatingSubCard>
+        </HeroPanelFrame>
+      }
       problemHeading="Why Conversations Keep Starting From Zero"
       problems={[
         {

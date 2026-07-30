@@ -9,6 +9,15 @@ import {
   Zap,
 } from "lucide-react";
 import { AgentLandingPage } from "@/components/marketing/AgentLandingPage";
+import {
+  HeroPanelFrame,
+  PanelShell,
+  FloatingSubCard,
+  PanelHeader,
+  StatTile,
+  ChatBubble,
+  ScoreBadge,
+} from "@/components/marketing/panels/HeroVisuals";
 
 export default function InboundUseCasePage() {
   return (
@@ -17,6 +26,25 @@ export default function InboundUseCasePage() {
       headline="Answer Every Incoming Request the Moment It Arrives"
       subheadline="Route, triage, and resolve inbound support requests across voice, chat, and email — without customers waiting in a queue for a human to be free."
       trustLine="Built for teams who measure support in seconds, not tickets"
+      heroVisual={
+        <HeroPanelFrame>
+          <PanelShell>
+            <PanelHeader title="Inbound Queue" status="Live" />
+            <div className="mt-4 grid grid-cols-2 gap-3">
+              <StatTile value="0" label="Calls waiting" />
+              <StatTile value="<15s" label="Avg wait time" />
+            </div>
+            <div className="mt-4">
+              <ChatBubble from="agent" label="Agent">
+                &ldquo;Hi! I can check your order status right now — what&apos;s the order number?&rdquo;
+              </ChatBubble>
+            </div>
+          </PanelShell>
+          <FloatingSubCard position="top-right">
+            <ScoreBadge value="24/7" label="Always answering" />
+          </FloatingSubCard>
+        </HeroPanelFrame>
+      }
       problemHeading="Why Queues Keep Growing Faster Than Rep Capacity"
       problems={[
         {

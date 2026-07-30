@@ -4,6 +4,13 @@ import { motion, type Variants } from "framer-motion";
 import { Lock, MessagesSquare, Target, Users } from "lucide-react";
 import { MarketingHeader } from "@/components/layout/MarketingHeader";
 import { MarketingFooter } from "@/components/layout/MarketingFooter";
+import {
+  HeroPanelFrame,
+  PanelShell,
+  PanelHeader,
+  StatTile,
+  FloatingSubCard,
+} from "@/components/marketing/panels/HeroVisuals";
 
 const sectionVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
@@ -74,20 +81,53 @@ export default function AboutUsPage() {
 
       {/* Hero */}
       <motion.section
-        className="pt-32 pb-20 px-6 text-center"
+        className="pt-32 pb-20 px-6"
         initial="hidden"
         animate="visible"
         variants={sectionVariants}
       >
-        <div className="mx-auto max-w-3xl">
-          <div className="text-xs font-semibold tracking-widest text-primary uppercase">About Meridian</div>
-          <h1 className="mt-4 text-4xl md:text-6xl font-bold tracking-tight text-gradient-heading">
-            We Think Every Conversation Deserves a Real Answer
-          </h1>
-          <p className="mt-5 text-lg text-muted-foreground leading-relaxed">
-            Meridian builds AI agents that talk, listen, and act like they actually understand the person on the
-            other end — not because it's a nice idea, but because anything less doesn't hold up at scale.
-          </p>
+        <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-2">
+          <div className="text-center lg:text-left">
+            <div className="text-xs font-semibold tracking-widest text-primary uppercase">About Meridian</div>
+            <h1 className="mt-4 text-4xl md:text-6xl font-bold tracking-tight text-gradient-heading">
+              We Think Every Conversation Deserves a Real Answer
+            </h1>
+            <p className="mt-5 text-lg text-muted-foreground leading-relaxed">
+              Meridian builds AI agents that talk, listen, and act like they actually understand the person on the
+              other end — not because it's a nice idea, but because anything less doesn't hold up at scale.
+            </p>
+          </div>
+          <HeroPanelFrame>
+            <PanelShell>
+              <PanelHeader title="Meridian" status="Est. 2026" />
+              <div className="mt-5 grid grid-cols-2 gap-3">
+                {STATS.map((stat) => (
+                  <StatTile key={stat.label} value={stat.value} label={stat.label} />
+                ))}
+              </div>
+              <div className="mt-5 space-y-2.5 border-t border-border pt-4">
+                {VALUES.slice(0, 2).map((value) => (
+                  <div key={value.title} className="flex items-center gap-2 text-xs text-foreground/80">
+                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-primary/10 text-primary">
+                      {value.icon}
+                    </span>
+                    {value.title}
+                  </div>
+                ))}
+              </div>
+            </PanelShell>
+            <FloatingSubCard position="bottom-left">
+              <div className="flex items-center gap-2">
+                <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/15 text-primary">
+                  <Lock className="h-3.5 w-3.5" />
+                </span>
+                <div>
+                  <div className="text-[11px] font-semibold text-foreground">Privacy by default</div>
+                  <div className="text-[10px] text-muted-foreground">Not an afterthought</div>
+                </div>
+              </div>
+            </FloatingSubCard>
+          </HeroPanelFrame>
         </div>
       </motion.section>
 

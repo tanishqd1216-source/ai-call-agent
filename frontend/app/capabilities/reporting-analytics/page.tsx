@@ -12,6 +12,12 @@ import {
   TrendingUp,
 } from "lucide-react";
 import { AgentLandingPage } from "@/components/marketing/AgentLandingPage";
+import {
+  HeroPanelFrame,
+  PanelHeader,
+  PanelShell,
+  StatTile,
+} from "@/components/marketing/panels/HeroVisuals";
 
 export default function ReportingAnalyticsCapabilityPage() {
   return (
@@ -20,6 +26,34 @@ export default function ReportingAnalyticsCapabilityPage() {
       headline="See Exactly What's Happening, Without Waiting for a Weekly Report"
       subheadline="Every conversation, outcome, and handoff rolls up into live dashboards — so you know how the agent is performing today, not after next Monday's standup."
       trustLine="Built for teams who make decisions on this week's data, not last quarter's"
+      heroVisual={
+        <HeroPanelFrame>
+          <PanelShell>
+            <PanelHeader title="Live Dashboard" status="Updated just now" />
+            <div className="mt-4 grid grid-cols-2 gap-3">
+              <StatTile value="2,140" label="Conversations today" />
+              <StatTile value="91%" label="Resolution rate" />
+              <StatTile value="42s" label="Avg. handle time" />
+              <StatTile value="4.6/5" label="Customer sentiment" />
+            </div>
+            <div className="mt-5 flex flex-col gap-2">
+              {[
+                { day: "Mon", pct: 55 },
+                { day: "Tue", pct: 70 },
+                { day: "Wed", pct: 48 },
+                { day: "Thu", pct: 85 },
+              ].map((row) => (
+                <div key={row.day} className="flex items-center gap-2">
+                  <span className="w-7 text-[10px] text-muted-foreground">{row.day}</span>
+                  <div className="h-2 flex-1 overflow-hidden rounded-full bg-primary/20">
+                    <div className="h-full rounded-full bg-primary" style={{ width: `${row.pct}%` }} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </PanelShell>
+        </HeroPanelFrame>
+      }
       problemHeading="Why Reporting Usually Lags Behind Reality"
       problems={[
         {
