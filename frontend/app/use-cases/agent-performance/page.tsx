@@ -11,6 +11,15 @@ import {
   TrendingUp,
 } from "lucide-react";
 import { AgentLandingPage } from "@/components/marketing/AgentLandingPage";
+import {
+  HeroPanelFrame,
+  PanelShell,
+  FloatingSubCard,
+  PanelHeader,
+  StatTile,
+  ScoreBadge,
+  ChecklistItem,
+} from "@/components/marketing/panels/HeroVisuals";
 
 export default function AgentPerformanceUseCasePage() {
   return (
@@ -19,6 +28,25 @@ export default function AgentPerformanceUseCasePage() {
       headline="Turn Every Call Into a Coaching Opportunity"
       subheadline="Score every conversation against your own rubric automatically, and hand coaches the exact moment to talk about — not just a number on a scorecard."
       trustLine="Built for teams who QA 2% of calls and coach on guesswork for the rest"
+      heroVisual={
+        <HeroPanelFrame>
+          <PanelShell>
+            <PanelHeader title="Agent Scorecard · Auto-QA" status="Live" />
+            <div className="mt-4 grid grid-cols-2 gap-3">
+              <StatTile value="94" label="QA score / 100" />
+              <StatTile value="6m 40s" label="Avg handle time" />
+              <StatTile value="4.7 / 5" label="CSAT" />
+              <StatTile value="88%" label="First-call resolution" />
+            </div>
+            <div className="mt-4">
+              <ScoreBadge value="Top 10%" label="Vs. team this week" />
+            </div>
+          </PanelShell>
+          <FloatingSubCard position="bottom-right">
+            <ChecklistItem label="Coaching moment flagged" />
+          </FloatingSubCard>
+        </HeroPanelFrame>
+      }
       problemHeading="Why Most QA Programs Miss Almost Everything"
       problems={[
         {

@@ -10,6 +10,15 @@ import {
   Stethoscope,
 } from "lucide-react";
 import { AgentLandingPage } from "@/components/marketing/AgentLandingPage";
+import {
+  HeroPanelFrame,
+  PanelShell,
+  FloatingSubCard,
+  PanelHeader,
+  PipelineStepper,
+  StatTile,
+  ChecklistItem,
+} from "@/components/marketing/panels/HeroVisuals";
 
 export default function InsuranceIndustryPage() {
   return (
@@ -18,6 +27,22 @@ export default function InsuranceIndustryPage() {
       headline="File a Claim in Minutes, Not After a Hold Song"
       subheadline="Take a first notice of loss, check claim status, and answer policy questions — all with the accuracy and documentation a claim actually requires."
       trustLine="Built for insurers who lose customers in the gap between filing and follow-up"
+      heroVisual={
+        <HeroPanelFrame>
+          <PanelShell>
+            <PanelHeader title="Claim #48213" status="Reviewing" />
+            <div className="mt-5">
+              <PipelineStepper steps={["Filed", "Reviewing", "Approved"]} currentIndex={1} />
+            </div>
+            <div className="mt-5 border-t border-border pt-4">
+              <StatTile value="48 hrs" label="Est. time to decision" />
+            </div>
+          </PanelShell>
+          <FloatingSubCard position="bottom-right">
+            <ChecklistItem label="Adjuster review not required" />
+          </FloatingSubCard>
+        </HeroPanelFrame>
+      }
       problemHeading="Why Claims Conversations Are the Hardest to Get Right"
       problems={[
         {

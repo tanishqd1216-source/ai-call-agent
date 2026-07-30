@@ -11,6 +11,15 @@ import {
   Users,
 } from "lucide-react";
 import { AgentLandingPage } from "@/components/marketing/AgentLandingPage";
+import {
+  HeroPanelFrame,
+  PanelShell,
+  FloatingSubCard,
+  PanelHeader,
+  ChatBubble,
+  StatTile,
+  ScoreBadge,
+} from "@/components/marketing/panels/HeroVisuals";
 
 export default function SentimentAnalysisUseCasePage() {
   return (
@@ -19,6 +28,27 @@ export default function SentimentAnalysisUseCasePage() {
       headline="Know Exactly How Customers Feel, Across Every Conversation"
       subheadline="Analyze tone and emotion in 100% of your calls and chats — not a sampled slice — so you catch a dip in satisfaction weeks before it shows up in a survey."
       trustLine="Built for teams tired of guessing from a 5% survey response rate"
+      heroVisual={
+        <HeroPanelFrame>
+          <PanelShell>
+            <PanelHeader title="Live Sentiment" status="Analyzing" />
+            <div className="mt-4">
+              <ChatBubble from="user" label="Customer">
+                &ldquo;Actually this fixed it way faster than I expected, thank you!&rdquo;
+              </ChatBubble>
+            </div>
+            <div className="mt-4">
+              <StatTile value="82% · Positive" label="Sentiment this call" />
+              <div className="mt-2 h-1.5 w-full rounded-full bg-border">
+                <div className="h-1.5 rounded-full bg-primary" style={{ width: "82%" }} />
+              </div>
+            </div>
+          </PanelShell>
+          <FloatingSubCard position="bottom-right">
+            <ScoreBadge value="+12pt" label="Vs. last week" />
+          </FloatingSubCard>
+        </HeroPanelFrame>
+      }
       problemHeading="Why Sentiment Stays Invisible Until It's a Problem"
       problems={[
         {

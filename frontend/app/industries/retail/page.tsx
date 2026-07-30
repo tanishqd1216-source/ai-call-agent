@@ -9,6 +9,15 @@ import {
   TrendingUp,
 } from "lucide-react";
 import { AgentLandingPage } from "@/components/marketing/AgentLandingPage";
+import {
+  HeroPanelFrame,
+  PanelShell,
+  FloatingSubCard,
+  PanelHeader,
+  ChecklistItem,
+  StatTile,
+  ScoreBadge,
+} from "@/components/marketing/panels/HeroVisuals";
 
 export default function RetailIndustryPage() {
   return (
@@ -17,6 +26,23 @@ export default function RetailIndustryPage() {
       headline="Handle Peak Season Like It's Any Other Tuesday"
       subheadline="From product questions to order tracking to returns, give every shopper an instant answer — even when volume spikes 10x for a holiday sale."
       trustLine="Built for retailers who can't staff up for Black Friday and staff down in January"
+      heroVisual={
+        <HeroPanelFrame>
+          <PanelShell>
+            <PanelHeader title="Order #10492" status="Processing" />
+            <div className="mt-4 space-y-2">
+              <ChecklistItem label="Order confirmed" />
+              <ChecklistItem label="Refund processed to original payment" />
+            </div>
+            <div className="mt-4 border-t border-border pt-4">
+              <StatTile value="$86.40" label="Order total" />
+            </div>
+          </PanelShell>
+          <FloatingSubCard position="bottom-right">
+            <ScoreBadge value="10x" label="Peak traffic handled" />
+          </FloatingSubCard>
+        </HeroPanelFrame>
+      }
       problemHeading="Why Retail Support Buckles Under Its Own Success"
       problems={[
         {

@@ -11,6 +11,14 @@ import {
   Users,
 } from "lucide-react";
 import { AgentLandingPage } from "@/components/marketing/AgentLandingPage";
+import {
+  FloatingSubCard,
+  HeroPanelFrame,
+  PanelHeader,
+  PanelShell,
+  PipelineStepper,
+  StatTile,
+} from "@/components/marketing/panels/HeroVisuals";
 
 export default function CampaignsCapabilityPage() {
   return (
@@ -19,6 +27,25 @@ export default function CampaignsCapabilityPage() {
       headline="Reach Thousands of Customers at Once, Each Conversation Still Personal"
       subheadline="Launch outbound voice, SMS, and chat campaigns at scale — reminders, promotions, surveys — without every conversation sounding like the same broadcast message."
       trustLine="Built for teams who need reach without sounding like a robocall"
+      heroVisual={
+        <HeroPanelFrame>
+          <PanelShell>
+            <PanelHeader title="Renewal Reminder Campaign" status="Sending" />
+            <div className="mt-5">
+              <PipelineStepper steps={["Draft", "Scheduled", "Sending", "Sent"]} currentIndex={2} />
+            </div>
+            <div className="mt-5 grid grid-cols-3 gap-2">
+              <StatTile value="68%" label="Connect rate" />
+              <StatTile value="24%" label="Reply rate" />
+              <StatTile value="0.4%" label="Opt-outs" />
+            </div>
+          </PanelShell>
+          <FloatingSubCard position="top-right">
+            <div className="text-[10px] text-muted-foreground">Conversations queued</div>
+            <div className="text-sm font-bold text-primary">4,820</div>
+          </FloatingSubCard>
+        </HeroPanelFrame>
+      }
       problemHeading="Why Outbound at Scale Usually Feels Impersonal"
       problems={[
         {

@@ -12,6 +12,13 @@ import {
   Star,
 } from "lucide-react";
 import { AgentLandingPage } from "@/components/marketing/AgentLandingPage";
+import {
+  FloatingSubCard,
+  HeroPanelFrame,
+  PanelHeader,
+  PanelShell,
+  StatTile,
+} from "@/components/marketing/panels/HeroVisuals";
 
 export default function Customer360CapabilityPage() {
   return (
@@ -20,6 +27,23 @@ export default function Customer360CapabilityPage() {
       headline="One Customer Record, Not Five Different Systems"
       subheadline="Every past conversation, order, and preference lives in a single profile the agent can pull up instantly — so no customer repeats themselves twice."
       trustLine="Built for teams tired of stitching together CRM, support, and billing by hand"
+      heroVisual={
+        <HeroPanelFrame>
+          <PanelShell>
+            <PanelHeader title="Customer Profile" status="Unified record" />
+            <div className="mt-4 grid grid-cols-2 gap-3">
+              <StatTile value="$4,280" label="Lifetime value" />
+              <StatTile value="2 days ago" label="Last contact" />
+              <StatTile value="WhatsApp" label="Preferred channel" />
+              <StatTile value="Positive" label="Recent sentiment" />
+            </div>
+          </PanelShell>
+          <FloatingSubCard position="bottom-left">
+            <div className="text-[10px] text-muted-foreground">Systems merged</div>
+            <div className="text-sm font-bold text-primary">5 → 1</div>
+          </FloatingSubCard>
+        </HeroPanelFrame>
+      }
       problemHeading="Why Customer Context Keeps Slipping Through the Cracks"
       problems={[
         {

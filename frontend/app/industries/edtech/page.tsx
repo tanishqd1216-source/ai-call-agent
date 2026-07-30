@@ -11,6 +11,14 @@ import {
   Users,
 } from "lucide-react";
 import { AgentLandingPage } from "@/components/marketing/AgentLandingPage";
+import {
+  HeroPanelFrame,
+  PanelShell,
+  FloatingSubCard,
+  PanelHeader,
+  StatTile,
+  ChecklistItem,
+} from "@/components/marketing/panels/HeroVisuals";
 
 export default function EdTechIndustryPage() {
   return (
@@ -19,6 +27,24 @@ export default function EdTechIndustryPage() {
       headline="Answer Every Student and Parent Question Before They Give Up and Call the Competition"
       subheadline="Handle enrollment questions, course logistics, and advising scheduling in real time — so an interested student doesn't lose momentum waiting for a callback."
       trustLine="Built for programs where enrollment decisions happen fast, or not at all"
+      heroVisual={
+        <HeroPanelFrame>
+          <PanelShell>
+            <PanelHeader title="Student Progress" status="On track" />
+            <div className="mt-4 grid grid-cols-2 gap-3">
+              <StatTile value="87%" label="Course completion" />
+              <StatTile value="12" label="Day streak" />
+            </div>
+            <div className="mt-4 border-t border-border pt-4">
+              <ChecklistItem label="Next lesson unlocked" />
+            </div>
+          </PanelShell>
+          <FloatingSubCard position="bottom-right">
+            <div className="text-[10px] text-muted-foreground">Advising booked</div>
+            <div className="text-xs font-semibold text-foreground/90">Thu, 3:00 PM</div>
+          </FloatingSubCard>
+        </HeroPanelFrame>
+      }
       problemHeading="Why Interested Students Go Quiet Overnight"
       problems={[
         {

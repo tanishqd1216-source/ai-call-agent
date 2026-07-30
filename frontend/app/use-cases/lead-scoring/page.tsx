@@ -8,6 +8,14 @@ import {
   Users,
 } from "lucide-react";
 import { AgentLandingPage } from "@/components/marketing/AgentLandingPage";
+import {
+  HeroPanelFrame,
+  PanelShell,
+  PanelHeader,
+  ScoreBadge,
+  ChecklistItem,
+  PipelineStepper,
+} from "@/components/marketing/panels/HeroVisuals";
 
 export default function LeadScoringUseCasePage() {
   return (
@@ -16,6 +24,24 @@ export default function LeadScoringUseCasePage() {
       headline="Know Which Leads Deserve a Call Back"
       subheadline="Score every inbound lead the moment they engage — combining conversation signals, buying intent, and account fit — so reps spend time only where it counts."
       trustLine="For teams drowning in leads but starved for signal"
+      heroVisual={
+        <HeroPanelFrame>
+          <PanelShell>
+            <PanelHeader title="Lead Scorecard" status="Updated live" />
+            <div className="mt-4">
+              <ScoreBadge value="87 / 100" label="Buying intent score" />
+            </div>
+            <div className="mt-4 flex flex-col gap-2">
+              <ChecklistItem label="Fits ideal customer profile" />
+              <ChecklistItem label="Mentioned budget & timeline" />
+              <ChecklistItem label="Auto-routed to AE" />
+            </div>
+            <div className="mt-5">
+              <PipelineStepper steps={["New", "Scored", "Routed"]} currentIndex={2} />
+            </div>
+          </PanelShell>
+        </HeroPanelFrame>
+      }
       problemHeading="The Cost of Scoring Leads by Gut Feel"
       problems={[
         {

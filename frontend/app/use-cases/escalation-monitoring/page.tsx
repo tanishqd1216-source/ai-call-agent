@@ -7,6 +7,15 @@ import {
   UserMinus,
 } from "lucide-react";
 import { AgentLandingPage } from "@/components/marketing/AgentLandingPage";
+import {
+  HeroPanelFrame,
+  PanelShell,
+  FloatingSubCard,
+  PanelHeader,
+  ChatBubble,
+  ScoreBadge,
+  ChecklistItem,
+} from "@/components/marketing/panels/HeroVisuals";
 
 export default function EscalationMonitoringUseCasePage() {
   return (
@@ -15,6 +24,24 @@ export default function EscalationMonitoringUseCasePage() {
       headline="Catch the Conversation Before It Becomes a Complaint"
       subheadline="Monitor every live interaction for risk signals — frustration, compliance flags, churn language — and route it to a human before it boils over."
       trustLine="For teams who'd rather prevent a bad review than respond to one"
+      heroVisual={
+        <HeroPanelFrame>
+          <PanelShell>
+            <PanelHeader title="Escalation Detected" status="Live" />
+            <div className="mt-4">
+              <ChatBubble from="user" label="Customer">
+                &ldquo;This is the third time I&apos;ve called about this. I&apos;m done waiting.&rdquo;
+              </ChatBubble>
+            </div>
+            <div className="mt-4">
+              <ScoreBadge value="Urgency: High" label="Sentiment dropped 3 turns ago" />
+            </div>
+          </PanelShell>
+          <FloatingSubCard position="bottom-right">
+            <ChecklistItem label="Routed to supervisor" />
+          </FloatingSubCard>
+        </HeroPanelFrame>
+      }
       problemHeading="Why Warning Signs Get Missed Until It's Too Late"
       problems={[
         {

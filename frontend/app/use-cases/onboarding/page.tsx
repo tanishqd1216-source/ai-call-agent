@@ -10,6 +10,15 @@ import {
   UserX,
 } from "lucide-react";
 import { AgentLandingPage } from "@/components/marketing/AgentLandingPage";
+import {
+  HeroPanelFrame,
+  PanelShell,
+  FloatingSubCard,
+  PanelHeader,
+  ChecklistItem,
+  ScoreBadge,
+  PipelineStepper,
+} from "@/components/marketing/panels/HeroVisuals";
 
 export default function OnboardingUseCasePage() {
   return (
@@ -18,6 +27,24 @@ export default function OnboardingUseCasePage() {
       headline="Get New Customers to Their First Win, Faster"
       subheadline="Guide every new customer through setup with proactive check-ins and milestone nudges — so they see real value before the excitement of signing wears off."
       trustLine="Built for the make-or-break first 30 days"
+      heroVisual={
+        <HeroPanelFrame>
+          <PanelShell>
+            <PanelHeader title="Onboarding Progress" status="Day 4 of 30" />
+            <div className="mt-5">
+              <PipelineStepper steps={["Signup", "Setup", "First Value"]} currentIndex={1} />
+            </div>
+            <div className="mt-5 flex flex-col gap-2">
+              <ChecklistItem label="Account configured" />
+              <ChecklistItem label="First data import complete" />
+              <ChecklistItem label="First real-use walkthrough" done={false} />
+            </div>
+          </PanelShell>
+          <FloatingSubCard position="bottom-right">
+            <ScoreBadge value="2x" label="Setup completion rate" />
+          </FloatingSubCard>
+        </HeroPanelFrame>
+      }
       problemHeading="Why New Customers Stall Before They Start"
       problems={[
         {

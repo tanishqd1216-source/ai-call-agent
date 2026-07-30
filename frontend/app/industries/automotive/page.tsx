@@ -10,6 +10,14 @@ import {
   Wrench,
 } from "lucide-react";
 import { AgentLandingPage } from "@/components/marketing/AgentLandingPage";
+import {
+  HeroPanelFrame,
+  PanelShell,
+  FloatingSubCard,
+  PanelHeader,
+  ChecklistItem,
+  ScoreBadge,
+} from "@/components/marketing/panels/HeroVisuals";
 
 export default function AutomotiveIndustryPage() {
   return (
@@ -18,6 +26,34 @@ export default function AutomotiveIndustryPage() {
       headline="From First Inquiry to Service Reminder, One Agent Covers the Whole Relationship"
       subheadline="Handle sales inquiries, book test drives, schedule service appointments, and send maintenance reminders — without a customer ever hitting a dead-end phone tree."
       trustLine="Built for dealerships juggling sales, service, and parts on the same phone line"
+      heroVisual={
+        <HeroPanelFrame>
+          <PanelShell>
+            <PanelHeader title="Service Booking" status="Confirmed" />
+            <div className="mt-4 space-y-3">
+              <div className="flex items-center justify-between text-xs">
+                <span className="text-muted-foreground">Vehicle</span>
+                <span className="font-medium text-foreground/90">2021 Honda CR-V</span>
+              </div>
+              <div className="flex items-center justify-between text-xs">
+                <span className="text-muted-foreground">Service</span>
+                <span className="font-medium text-foreground/90">Oil change + brake inspection</span>
+              </div>
+              <div className="flex items-center justify-between text-xs">
+                <span className="text-muted-foreground">Slot</span>
+                <span className="font-medium text-foreground/90">Tomorrow, 10:30 AM</span>
+              </div>
+            </div>
+            <div className="mt-4 space-y-2 border-t border-border pt-4">
+              <ChecklistItem label="Loaner car reserved" />
+              <ChecklistItem label="Reminder set for 5,000 mi service" />
+            </div>
+          </PanelShell>
+          <FloatingSubCard position="bottom-right">
+            <ScoreBadge value="+20%" label="Booked on first contact" />
+          </FloatingSubCard>
+        </HeroPanelFrame>
+      }
       problemHeading="Why Dealership Phone Lines Stay Overloaded"
       problems={[
         {

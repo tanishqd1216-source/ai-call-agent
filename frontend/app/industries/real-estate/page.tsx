@@ -11,6 +11,15 @@ import {
   Users,
 } from "lucide-react";
 import { AgentLandingPage } from "@/components/marketing/AgentLandingPage";
+import {
+  HeroPanelFrame,
+  PanelShell,
+  FloatingSubCard,
+  PanelHeader,
+  StatTile,
+  ChecklistItem,
+  ScoreBadge,
+} from "@/components/marketing/panels/HeroVisuals";
 
 export default function RealEstateIndustryPage() {
   return (
@@ -19,6 +28,24 @@ export default function RealEstateIndustryPage() {
       headline="Never Lose a Lead Because a Listing Went Live at 9pm"
       subheadline="Answer property questions and book showings the moment a buyer is interested — even if that moment is a Sunday night, three hours after your office closed."
       trustLine="Built for agents who lose leads to whoever calls back first"
+      heroVisual={
+        <HeroPanelFrame>
+          <PanelShell>
+            <PanelHeader title="Property Match" status="New" />
+            <div className="mt-4 grid grid-cols-3 gap-3">
+              <StatTile value="$625K" label="List price" />
+              <StatTile value="3" label="Showings booked" />
+              <StatTile value="94%" label="Match score" />
+            </div>
+            <div className="mt-4 border-t border-border pt-4">
+              <ChecklistItem label="Viewing scheduled: Sat, 2:00 PM" />
+            </div>
+          </PanelShell>
+          <FloatingSubCard position="bottom-right">
+            <ScoreBadge value="Pre-approved" label="Buyer status" />
+          </FloatingSubCard>
+        </HeroPanelFrame>
+      }
       problemHeading="Why the Fastest Response Usually Wins the Lead"
       problems={[
         {

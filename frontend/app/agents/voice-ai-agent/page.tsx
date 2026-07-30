@@ -13,6 +13,15 @@ import {
   TrendingUp,
 } from "lucide-react";
 import { AgentLandingPage } from "@/components/marketing/AgentLandingPage";
+import {
+  ChatBubble,
+  FloatingSubCard,
+  HeroPanelFrame,
+  PanelHeader,
+  PanelShell,
+  ScoreBadge,
+  StatTile,
+} from "@/components/marketing/panels/HeroVisuals";
 
 export default function VoiceAiAgentPage() {
   return (
@@ -21,6 +30,26 @@ export default function VoiceAiAgentPage() {
       headline="Answer Every Call Like Your Best Rep Would"
       subheadline="Deploy a real-time voice agent that handles support, sales, and bookings with natural, low-latency conversation — no scripts, no hold music."
       trustLine="Built for teams who can't afford a dropped call"
+      heroVisual={
+        <HeroPanelFrame>
+          <PanelShell>
+            <PanelHeader title="Live Call" status="00:42" />
+            <div className="mt-4 space-y-3">
+              <ChatBubble from="user">Hey, I need to reschedule my appointment for tomorrow.</ChatBubble>
+              <ChatBubble from="agent">Sure — I have 2:00 PM or 4:30 PM open. Which works?</ChatBubble>
+              <ChatBubble from="user">4:30 works great, thanks.</ChatBubble>
+            </div>
+            <div className="mt-5 grid grid-cols-3 gap-2">
+              <StatTile value="<800ms" label="Response latency" />
+              <StatTile value="90%+" label="Resolved without a human" />
+              <StatTile value="+55%" label="CSAT improvement" />
+            </div>
+          </PanelShell>
+          <FloatingSubCard position="bottom-right">
+            <ScoreBadge value="Positive" label="Live sentiment" />
+          </FloatingSubCard>
+        </HeroPanelFrame>
+      }
       problemHeading="Why Most Voice Bots Feel Robotic"
       problems={[
         {

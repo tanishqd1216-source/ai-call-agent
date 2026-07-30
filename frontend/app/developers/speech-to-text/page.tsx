@@ -10,6 +10,17 @@ import {
   Volume2,
 } from "lucide-react";
 import { AgentLandingPage } from "@/components/marketing/AgentLandingPage";
+import {
+  ChatBubble,
+  FloatingSubCard,
+  HeroPanelFrame,
+  PanelHeader,
+  PanelShell,
+  ScoreBadge,
+  StatTile,
+} from "@/components/marketing/panels/HeroVisuals";
+
+const STT_WAVEFORM_HEIGHTS = [6, 14, 9, 20, 12, 26, 16, 22, 10, 18, 8, 24, 14, 20, 7, 16];
 
 export default function SpeechToTextPage() {
   return (
@@ -18,6 +29,34 @@ export default function SpeechToTextPage() {
       headline="Transcription Accurate Enough to Build a Business On"
       subheadline="Low-latency, high-accuracy speech recognition purpose-built for real-time conversation — with the option to bring your own model if you've already got one."
       trustLine="Built for the accuracy a live conversation actually demands"
+      heroVisual={
+        <HeroPanelFrame>
+          <PanelShell>
+            <PanelHeader title="Live Transcription" status="Listening" />
+            <div className="mt-4 flex h-12 items-end gap-[3px]">
+              {STT_WAVEFORM_HEIGHTS.map((h, i) => (
+                <div
+                  key={i}
+                  className={`w-1 rounded-full ${i % 3 === 0 ? "bg-primary" : "bg-primary/40"}`}
+                  style={{ height: `${h}px` }}
+                />
+              ))}
+            </div>
+            <div className="mt-4">
+              <ChatBubble from="user" label="Transcript">
+                &ldquo;Hi, I&apos;d like to check the status of order 48213.&rdquo;
+              </ChatBubble>
+            </div>
+            <div className="mt-4 grid grid-cols-2 gap-3">
+              <StatTile value="98%+" label="Accuracy on real audio" />
+              <StatTile value="<300ms" label="Streaming latency" />
+            </div>
+          </PanelShell>
+          <FloatingSubCard position="bottom-right">
+            <ScoreBadge value="BYO" label="Model support" />
+          </FloatingSubCard>
+        </HeroPanelFrame>
+      }
       problemHeading="Why Generic Transcription Falls Apart on a Real Call"
       problems={[
         {

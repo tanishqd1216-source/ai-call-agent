@@ -4,6 +4,8 @@ import {
   Layers,
   Mail,
   MessageCircle,
+  MessageSquare,
+  Phone,
   RotateCcw,
   Smartphone,
   Split,
@@ -11,6 +13,15 @@ import {
   Workflow,
 } from "lucide-react";
 import { AgentLandingPage } from "@/components/marketing/AgentLandingPage";
+import {
+  ChatBubble,
+  FloatingSubCard,
+  FlowConnector,
+  FlowNode,
+  HeroPanelFrame,
+  PanelHeader,
+  PanelShell,
+} from "@/components/marketing/panels/HeroVisuals";
 
 export default function OmniChannelAgentsCapabilityPage() {
   return (
@@ -19,6 +30,27 @@ export default function OmniChannelAgentsCapabilityPage() {
       headline="One Agent, Every Channel, the Same Conversation"
       subheadline="Voice, chat, email, and social all run through the same agent with the same memory — so a conversation that starts on the phone can finish over chat without missing a beat."
       trustLine="Built for customers who don't think in channels, only in conversations"
+      heroVisual={
+        <HeroPanelFrame>
+          <PanelShell>
+            <PanelHeader title="Unified Conversation" status="4 channels · 1 agent" />
+            <div className="mt-4 grid grid-cols-2 gap-2">
+              <FlowNode icon={<Phone className="h-3.5 w-3.5" />} title="Voice" />
+              <FlowNode icon={<MessageCircle className="h-3.5 w-3.5" />} title="WhatsApp" />
+              <FlowNode icon={<Mail className="h-3.5 w-3.5" />} title="Email" />
+              <FlowNode icon={<MessageSquare className="h-3.5 w-3.5" />} title="Chat" />
+            </div>
+            <FlowConnector label="merges into" />
+            <ChatBubble from="agent" label="Same agent, same memory">
+              Picking up where your call left off — here&apos;s your updated order status.
+            </ChatBubble>
+          </PanelShell>
+          <FloatingSubCard position="top-right">
+            <div className="text-[10px] text-muted-foreground">Context lost on switch</div>
+            <div className="text-sm font-bold text-primary">0</div>
+          </FloatingSubCard>
+        </HeroPanelFrame>
+      }
       problemHeading="Why Channels Usually Feel Like Separate Products"
       problems={[
         {

@@ -7,6 +7,15 @@ import {
   MessageSquare,
 } from "lucide-react";
 import { AgentLandingPage } from "@/components/marketing/AgentLandingPage";
+import {
+  HeroPanelFrame,
+  PanelShell,
+  FloatingSubCard,
+  PanelHeader,
+  StatTile,
+  ScoreBadge,
+  PipelineStepper,
+} from "@/components/marketing/panels/HeroVisuals";
 
 export default function CollectionsUseCasePage() {
   return (
@@ -15,6 +24,22 @@ export default function CollectionsUseCasePage() {
       headline="Get Paid Without Damaging the Relationship"
       subheadline="Send payment reminders and negotiate repayment plans with a tone that adapts to how the customer responds — firm when it needs to be, human always."
       trustLine="Built for recovering revenue without losing the customer"
+      heroVisual={
+        <HeroPanelFrame>
+          <PanelShell>
+            <PanelHeader title="Repayment Journey" status="Active" />
+            <div className="mt-5">
+              <PipelineStepper steps={["Reminder", "Promise to Pay", "Paid"]} currentIndex={1} />
+            </div>
+            <div className="mt-5">
+              <StatTile value="+35%" label="Recovery rate" />
+            </div>
+          </PanelShell>
+          <FloatingSubCard position="bottom-right">
+            <ScoreBadge value="100%" label="Compliance-reviewed" />
+          </FloatingSubCard>
+        </HeroPanelFrame>
+      }
       problemHeading="Why Collections Outreach Backfires So Often"
       problems={[
         {

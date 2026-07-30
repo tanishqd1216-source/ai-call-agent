@@ -21,6 +21,7 @@ export type AgentLandingPageProps = {
   headline: string;
   subheadline: string;
   trustLine?: string;
+  heroVisual?: ReactNode;
   problemHeading: string;
   problems: Problem[];
   whyHeading: string;
@@ -73,6 +74,7 @@ export function AgentLandingPage({
   headline,
   subheadline,
   trustLine,
+  heroVisual,
   problemHeading,
   problems,
   whyHeading,
@@ -91,31 +93,38 @@ export function AgentLandingPage({
 
       {/* Hero */}
       <motion.section
-        className="pt-32 pb-20 px-6 text-center"
+        className="pt-32 pb-20 px-6"
         initial="hidden"
         animate="visible"
         variants={sectionVariants}
       >
-        <div className="mx-auto max-w-3xl">
-          <div className="text-xs font-semibold tracking-widest text-primary uppercase">{eyebrow}</div>
-          <h1 className="mt-4 text-4xl md:text-6xl font-bold tracking-tight text-gradient-heading">
-            {headline}
-          </h1>
-          <p className="mt-5 text-lg text-muted-foreground leading-relaxed">{subheadline}</p>
-          <div className="mt-8">
-            <motion.button
-              type="button"
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
-              transition={{ type: "spring", stiffness: 400, damping: 20 }}
-              className="rounded-lg bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:bg-primary-hover transition-colors"
-            >
-              Book a Demo
-            </motion.button>
+        <div
+          className={`mx-auto grid max-w-6xl items-center gap-12 ${
+            heroVisual ? "lg:grid-cols-2" : ""
+          }`}
+        >
+          <div className="text-center lg:text-left">
+            <div className="text-xs font-semibold tracking-widest text-primary uppercase">{eyebrow}</div>
+            <h1 className="mt-4 text-4xl md:text-6xl font-bold tracking-tight text-gradient-heading">
+              {headline}
+            </h1>
+            <p className="mt-5 text-lg text-muted-foreground leading-relaxed">{subheadline}</p>
+            <div className="mt-8">
+              <motion.button
+                type="button"
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                className="rounded-lg bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:bg-primary-hover transition-colors"
+              >
+                Book a Demo
+              </motion.button>
+            </div>
+            {trustLine && (
+              <p className="mt-6 text-xs uppercase tracking-widest text-muted-foreground">{trustLine}</p>
+            )}
           </div>
-          {trustLine && (
-            <p className="mt-6 text-xs uppercase tracking-widest text-muted-foreground">{trustLine}</p>
-          )}
+          {heroVisual && <div>{heroVisual}</div>}
         </div>
       </motion.section>
 

@@ -1,17 +1,28 @@
 import {
   BookOpen,
   Calendar,
+  CheckCircle2,
   Database,
+  GitBranch,
   Lock,
   MessageSquareOff,
   Package,
   Puzzle,
+  Radio,
   Receipt,
   UserCheck,
   Workflow,
   Wrench,
 } from "lucide-react";
 import { AgentLandingPage } from "@/components/marketing/AgentLandingPage";
+import {
+  FloatingSubCard,
+  FlowConnector,
+  FlowNode,
+  HeroPanelFrame,
+  PanelHeader,
+  PanelShell,
+} from "@/components/marketing/panels/HeroVisuals";
 
 export default function ActionsFrameworkCapabilityPage() {
   return (
@@ -20,6 +31,24 @@ export default function ActionsFrameworkCapabilityPage() {
       headline="An Agent That Can Actually Do the Thing, Not Just Talk About It"
       subheadline="Connect the agent directly to your CRM, billing, and scheduling systems so it can issue a refund, update a record, or book an appointment — not just tell the customer to wait for someone who can."
       trustLine="Built for teams done routing every request to a human just to click a button"
+      heroVisual={
+        <HeroPanelFrame>
+          <PanelShell>
+            <PanelHeader title="Action Flow" status="Live" />
+            <div className="mt-4 flex flex-col gap-1">
+              <FlowNode icon={<Radio className="h-3.5 w-3.5" />} title="Trigger" subtitle="Customer requests a refund" />
+              <FlowConnector />
+              <FlowNode icon={<GitBranch className="h-3.5 w-3.5" />} title="Condition" subtitle="Order eligible & under $50" />
+              <FlowConnector />
+              <FlowNode icon={<CheckCircle2 className="h-3.5 w-3.5" />} title="Action" subtitle="Refund issued in billing system" active />
+            </div>
+          </PanelShell>
+          <FloatingSubCard position="bottom-right">
+            <div className="text-[10px] text-muted-foreground">Human clicks required</div>
+            <div className="text-sm font-bold text-primary">0</div>
+          </FloatingSubCard>
+        </HeroPanelFrame>
+      }
       problemHeading="Why Conversation Alone Doesn't Resolve Anything"
       problems={[
         {
