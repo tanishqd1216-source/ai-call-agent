@@ -176,3 +176,80 @@ proxy rule is ever bypassed. Also repointed the root layout's brand-name link fr
 since `/` no longer renders anything itself. Verified via `next build` (clean) and a real browser:
 `/` → `/erp` → `/erp/login` (two 307s, confirmed with Playwright following redirects), and
 `/calls-history` still renders the real call data standalone (3 calls, correct stats).
+
+---
+
+## 2026-08-03 — Session: M1/M4 status audit — found already done, verified with real historical data
+
+**This file was stale.** No dated entry was ever added here between 2026-07-25 and today, even
+though real work happened in that window: the ERP/rebrand git commits (`erp-conversion` merge,
+Meridian rebrand) landed on `main`, and — more importantly for this repo's own stated M1/M4
+milestones — `event_reporter.py` was added to `livekit_agent/` and wired into both
+`agent_outbound.py` and `agent_inbound.py` at some point after this file's last entry. That work
+was apparently logged only in `livekit_agent/PROGRESS.md` (a separate file, separate repo), never
+cross-referenced back here. Treat this file's dates as a lower bound on what's actually done, not
+an accurate account — check the live code/DB before assuming a milestone marked "not done" here
+still isn't done.
+
+**M1 — done, not just planned.** `event_reporter.py` exists (`livekit_agent/event_reporter.py`,
+47 lines, fire-and-forget `httpx` POST to `EVENTS_API_URL`, defaults to
+`http://localhost:4000/api/events`). Both `agent_outbound.py` and `agent_inbound.py` call
+`fire_event(call_id, direction, event_type, payload)` at every lifecycle point (`call_started`,
+per-turn `turn` from `make_metrics_handler`, `phase_change` for inbound, `call_ended` from all
+three end-of-call paths — silence-timeout, caller-disconnect, agent-initiated `end_call`).
+Outbound's `call_id` is `ctx.room.name`, used consistently across all its event calls — the
+"outbound has no call_id" note in the 2026-07-25 M1 plan above is stale; that gap doesn't exist in
+the current code.
+
+**M4 — done, confirmed retroactively via real historical data already in Postgres** (no new test
+call needed; this session queried the already-running backend at `localhost:4000` and cross-checked
+against the agent's own CSV logs):
+- **Outbound** (`web-call-efe30c86`, 2026-08-01): `call_started`/`call_ended` events present,
+  `owner: "radhika"` correctly promoted onto the `Call` row from the event payload, 8 `CallTurn`
+  rows present. Cross-checked every turn's `eouDelaySeconds`/`transcriptionDelaySeconds`/
+  `llmTtftSeconds`/`ttsTtfbSeconds`/`responseLatencySeconds`/`inputTokens`/`outputTokens` against
+  `livekit_agent/logs/latency_logs_outbound.csv` for the same call — **exact match on all 8 rows**,
+  confirming zero data loss/corruption between the agent's local metrics and what lands in Postgres.
+  `call_ended`'s raw JSON payload correctly preserves `reason: "normal"` even though `reason` isn't
+  one of `callFieldsSchema`'s promoted columns (Zod silently drops unknown keys from the `Call`
+  update but the full raw payload is still kept on `CallEvent.payload` — by design, per the schema
+  file's own comment).
+- **Inbound** (`web-call-fe050e1f`, 2026-07-29): `call_started` (empty payload — inbound doesn't
+  know caller identity yet, expected), a `phase_change` event mid-call that correctly promoted
+  `phase`, `category`, `resolution` onto the `Call` row while leaving `_dashboard_state`'s other
+  fields (`active`, `identified`, `date`, `updated_at`) in the raw JSON only, and `call_ended` with
+  the same promotion pattern. 8 `CallTurn` rows present. This exercises everything outbound doesn't
+  (phase_change, richer structured-field promotion) and it all works correctly.
+
+**Security finding from 2026-07-25 (line ~150 above), re-checked: already fixed, no longer an open
+item.** `webcall_server.py`'s `GET /api/config` now filters through a `CONFIG_ALLOWED_KEYS`
+allowlist (~15 non-secret tuning knobs — STT/TTS model, VAD thresholds, etc.) before returning
+anything; the handler's own comment documents this was fixed after being flagged. No LiveKit/Sarvam/
+Anthropic/OpenAI keys are reachable via this endpoint today. This should have been logged back here
+when it was fixed in the other repo — flagging that cross-repo-fix-logging gap itself as a minor
+process note for future sessions working across both repos.
+
+**One minor, unrelated gap noticed while querying call data (not investigated further this
+session):** two calls in the DB are stuck in `status: "in_progress"` with no `call_ended` event
+ever recorded (`web-call-9c2cd163`, `web-call-f7c7fc81`, both inbound, both from 2026-07-29/30).
+Likely a dev-session process kill before the graceful end-of-call path fired, consistent with
+`livekit_agent/PROGRESS.md`'s own note about `add_shutdown_callback`'s up-to-40s hangup-detection
+lag. Not a data-integrity bug in the event pipeline itself (the pipeline correctly reported
+whatever did happen), but the dashboard has no stale-call sweeper/timeout to mark these `error` or
+`abandoned` — worth a small workflow (Module 09-style) if this becomes a recurring nuisance in the
+calls-history view.
+
+**Not done in this session (explicitly out of scope, per the plan this was executed from):**
+extracting the shared module between `agent_inbound.py`/`agent_outbound.py` (still fully
+duplicated), building a real data-driven Agent Config model (the dashboard's `Agent` table is
+still just a menu tile — name + `launchUrl`, no prompt/tools/phone/provider config), and the
+broken `tests/run_stress_test.py` import (`from agent import build_instructions` — `agent.py` was
+renamed to `agent_outbound.py`, so this script still `ImportError`s if run). These are the
+next-highest-leverage items once this session's scope is picked back up.
+
+**Update, later session:** the shared-module extraction was planned in full detail (exact line
+ranges, byte-identical-vs-genuinely-different classification for every function/prompt-rule, a
+verification plan) but deliberately not executed yet — see
+`livekit_agent/SHARED_MODULE_REFACTOR_PLAN.md` for the complete, ready-to-execute plan when this
+is picked back up.
+
