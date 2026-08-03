@@ -69,7 +69,8 @@ const STATS = [
 
 export default function AboutUsPage() {
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="flex flex-col min-h-screen bg-background text-foreground">
+      <div className="flex-1">
       <MarketingHeader />
 
       {/* Hero */}
@@ -175,6 +176,7 @@ export default function AboutUsPage() {
           </motion.button>
         </div>
       </RevealSection>
+      </div>
 
       <MarketingFooter />
     </div>

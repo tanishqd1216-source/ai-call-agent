@@ -53,3 +53,32 @@ export const loginSchema = z.object({
 });
 
 export type LoginInput = z.infer<typeof loginSchema>;
+
+export const createIntegrationSchema = z.object({
+  name: z.string().min(1),
+  kind: z.enum(["crm", "mcp"]),
+  provider: z.string().min(1),
+  serverUrl: z.string().url(),
+  transport: z.enum(["streamable_http", "sse"]).optional().default("streamable_http"),
+  authToken: z.string().min(1).optional(),
+  allowedTools: z.array(z.string()).optional().default([]),
+  enabled: z.boolean().optional().default(true),
+});
+
+export type CreateIntegrationInput = z.infer<typeof createIntegrationSchema>;
+
+// Not createIntegrationSchema.partial() — that schema's `.default(...)` calls
+// still fire for omitted fields even under `.partial()`, which would reset
+// e.g. allowedTools to [] on every PATCH that doesn't mention it.
+export const updateIntegrationSchema = z.object({
+  name: z.string().min(1).optional(),
+  kind: z.enum(["crm", "mcp"]).optional(),
+  provider: z.string().min(1).optional(),
+  serverUrl: z.string().url().optional(),
+  transport: z.enum(["streamable_http", "sse"]).optional(),
+  authToken: z.string().min(1).optional(),
+  allowedTools: z.array(z.string()).optional(),
+  enabled: z.boolean().optional(),
+});
+
+export type UpdateIntegrationInput = z.infer<typeof updateIntegrationSchema>;

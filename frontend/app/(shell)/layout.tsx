@@ -13,7 +13,7 @@ export default async function ShellLayout({
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Sidebar session={session} departments={departments} />
-      <div className="pt-16">
+      <div className="pt-16 md:pt-0 md:pl-72">
         <main className="px-6 py-6 max-w-6xl mx-auto w-full">{children}</main>
       </div>
     </div>

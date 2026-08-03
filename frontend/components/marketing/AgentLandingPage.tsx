@@ -21,6 +21,7 @@ export type AgentLandingPageProps = {
   headline: string;
   subheadline: string;
   trustLine?: string;
+  heroVisual?: ReactNode;
   problemHeading: string;
   problems: Problem[];
   whyHeading: string;
@@ -73,6 +74,7 @@ export function AgentLandingPage({
   headline,
   subheadline,
   trustLine,
+  heroVisual,
   problemHeading,
   problems,
   whyHeading,
@@ -86,7 +88,8 @@ export function AgentLandingPage({
   ctaHeading,
 }: AgentLandingPageProps) {
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="flex flex-col min-h-screen bg-background text-foreground">
+      <div className="flex-1">
       <MarketingHeader />
 
       {/* Hero */}
@@ -97,6 +100,7 @@ export function AgentLandingPage({
         variants={sectionVariants}
       >
         <div className="mx-auto max-w-3xl">
+          {heroVisual}
           <div className="text-xs font-semibold tracking-widest text-primary uppercase">{eyebrow}</div>
           <h1 className="mt-4 text-4xl md:text-6xl font-bold tracking-tight text-gradient-heading">
             {headline}
@@ -283,6 +287,7 @@ export function AgentLandingPage({
           </motion.button>
         </div>
       </RevealSection>
+      </div>
 
       <MarketingFooter />
     </div>

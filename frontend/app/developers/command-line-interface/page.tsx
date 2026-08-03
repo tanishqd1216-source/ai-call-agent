@@ -11,10 +11,12 @@ import {
   Workflow,
 } from "lucide-react";
 import { AgentLandingPage } from "@/components/marketing/AgentLandingPage";
+import { HeroVisual } from "@/components/marketing/HeroVisual";
 
 export default function CommandLineInterfacePage() {
   return (
     <AgentLandingPage
+      heroVisual={<HeroVisual variant="cli" />}
       eyebrow="Developers — Command Line Interface"
       headline="Manage Every Agent From a Terminal, Not a Ticket Queue"
       subheadline="Deploy, configure, and roll back agents with a single CLI — built for engineering teams who'd rather script a change than click through a dashboard five times."

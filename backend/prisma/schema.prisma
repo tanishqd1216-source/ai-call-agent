@@ -77,7 +77,8 @@ model Company {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  users User[]
+  users        User[]
+  integrations Integration[]
 
   @@index([name])
 }
@@ -136,4 +137,26 @@ model Agent {
 
   @@index([departmentId])
   @@index([sortOrder])
+}
+
+// --- CRM / MCP connections. "kind" is a UI label only — both crm and mcp
+// connections are wired the same way, as an MCP server endpoint the voice
+// agent connects to at call time (see livekit_agent/integrations_loader.py). ---
+
+model Integration {
+  id           String   @id @default(cuid())
+  company      Company  @relation(fields: [companyId], references: [id])
+  companyId    String
+  name         String
+  kind         String // "crm" | "mcp"
+  provider     String // "hubspot" | "salesforce" | "zoho" | "custom", free text
+  serverUrl    String
+  transport    String   @default("streamable_http") // matches MCPServerHTTP transport_type
+  authToken    String? // AES-256-GCM ciphertext — never returned decrypted over the API
+  allowedTools String[] @default([]) // empty = all tools exposed
+  enabled      Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([companyId])
 }

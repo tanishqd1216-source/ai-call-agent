@@ -90,3 +90,74 @@ export async function listDepartmentsWithAgents(token: string): Promise<Departme
   );
   return details.filter((d): d is DepartmentDetail => d !== null);
 }
+
+export type Integration = {
+  id: string;
+  name: string;
+  kind: "crm" | "mcp";
+  provider: string;
+  serverUrl: string;
+  transport: string;
+  authTokenSet: boolean;
+  allowedTools: string[];
+  enabled: boolean;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type CreateIntegrationInput = {
+  name: string;
+  kind: "crm" | "mcp";
+  provider: string;
+  serverUrl: string;
+  authToken?: string;
+  allowedTools?: string[];
+};
+
+export async function listIntegrations(token: string): Promise<Integration[]> {
+  const res = await fetch(`${apiBaseUrl()}/api/integrations`, {
+    headers: { Authorization: `Bearer ${token}` },
+    cache: "no-store",
+  });
+  if (!res.ok) throw new Error(`Failed to load integrations (${res.status})`);
+  return res.json();
+}
+
+export async function createIntegration(
+  token: string,
+  input: CreateIntegrationInput,
+): Promise<Integration> {
+  const res = await fetch(`${apiBaseUrl()}/api/integrations`, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+    body: JSON.stringify(input),
+    cache: "no-store",
+  });
+  if (!res.ok) throw new Error(`Failed to create integration (${res.status})`);
+  return res.json();
+}
+
+export async function setIntegrationEnabled(
+  token: string,
+  id: string,
+  enabled: boolean,
+): Promise<void> {
+  const res = await fetch(`${apiBaseUrl()}/api/integrations/${encodeURIComponent(id)}`, {
+    method: "PATCH",
+    headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+    body: JSON.stringify({ enabled }),
+    cache: "no-store",
+  });
+  if (!res.ok) throw new Error(`Failed to update integration (${res.status})`);
+}
+
+export async function deleteIntegration(token: string, id: string): Promise<void> {
+  const res = await fetch(`${apiBaseUrl()}/api/integrations/${encodeURIComponent(id)}`, {
+    method: "DELETE",
+    headers: { Authorization: `Bearer ${token}` },
+    cache: "no-store",
+  });
+  if (!res.ok && res.status !== 404) {
+    throw new Error(`Failed to delete integration (${res.status})`);
+  }
+}

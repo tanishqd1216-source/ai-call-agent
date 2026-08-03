@@ -7,9 +7,16 @@ export default async function ErpDashboardPage() {
     // Breaks out of the shell layout's `max-w-6xl mx-auto` (1152px) so this
     // page can be wider, but caps it well short of full-bleed — just a
     // moderately roomier column, still centered.
-    <div className="relative left-1/2 right-1/2 w-screen -mx-[50vw] px-4 md:px-6">
+    <div className="relative left-1/2 right-1/2 w-screen md:w-[calc(100vw-18rem)] -mx-[50vw] md:-mx-[calc(50vw-9rem)] px-4 md:px-6">
       <div className="mx-auto max-w-[1280px]">
         <div className="flex flex-col gap-6">
+          <div className="text-center">
+            <div className="text-[10px] font-medium text-muted-foreground uppercase tracking-wide">
+              Company
+            </div>
+            <div className="text-lg font-bold tracking-tight">Vetic Pet-Care</div>
+          </div>
+
           <div className="rounded-2xl border border-border bg-surface ring-1 ring-white/5 shadow-2xl p-8 md:p-12">
             <h1 className="text-xl font-semibold tracking-tight mb-1">Welcome</h1>
             <p className="text-sm text-muted-foreground">

@@ -87,6 +87,30 @@ export function MobileNavDrawer({
               {departments.map((department) => {
                 const key = `dept-${department.id}`;
                 const isExpanded = expanded.has(key);
+
+                // A department with exactly one agent has nothing to choose between —
+                // clicking it goes straight to that agent's launch console instead of
+                // expanding a one-item list first.
+                if (department.agents.length === 1) {
+                  const agent = department.agents[0];
+                  const href = `/erp/departments/${department.id}/agents/${agent.id}/launch`;
+                  const active = pathname === href;
+                  return (
+                    <Link
+                      key={department.id}
+                      href={href}
+                      className={cn(
+                        "rounded-lg px-3 py-2 text-sm font-medium transition-colors",
+                        active
+                          ? "bg-sidebar-accent text-sidebar-foreground"
+                          : "text-muted-foreground hover:bg-sidebar-accent hover:text-sidebar-foreground",
+                      )}
+                    >
+                      {department.name}
+                    </Link>
+                  );
+                }
+
                 return (
                   <div key={department.id} className="flex flex-col">
                     <button
@@ -235,22 +259,14 @@ export function MobileNavDrawer({
           )}
 
           {session && (
-            <>
-              <div>
-                <div className="text-[10px] font-medium text-muted-foreground uppercase tracking-wide">
-                  Company
-                </div>
-                <div className="text-sm font-semibold tracking-tight">{session.company.name}</div>
-              </div>
-              <form action={logoutAction}>
-                <button
-                  type="submit"
-                  className="w-full text-sm rounded-lg border border-sidebar-border px-3 py-1.5 hover:bg-sidebar-accent transition-colors"
-                >
-                  Log out
-                </button>
-              </form>
-            </>
+            <form action={logoutAction}>
+              <button
+                type="submit"
+                className="w-full text-sm rounded-lg border border-sidebar-border px-3 py-1.5 hover:bg-sidebar-accent transition-colors"
+              >
+                Log out
+              </button>
+            </form>
           )}
         </div>
       </aside>

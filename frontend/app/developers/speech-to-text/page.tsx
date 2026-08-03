@@ -10,10 +10,12 @@ import {
   Volume2,
 } from "lucide-react";
 import { AgentLandingPage } from "@/components/marketing/AgentLandingPage";
+import { HeroVisual } from "@/components/marketing/HeroVisual";
 
 export default function SpeechToTextPage() {
   return (
     <AgentLandingPage
+      heroVisual={<HeroVisual variant="stt" />}
       eyebrow="Developers — Speech To Text"
       headline="Transcription Accurate Enough to Build a Business On"
       subheadline="Low-latency, high-accuracy speech recognition purpose-built for real-time conversation — with the option to bring your own model if you've already got one."

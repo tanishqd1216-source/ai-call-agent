@@ -11,10 +11,12 @@ import {
   Volume2,
 } from "lucide-react";
 import { AgentLandingPage } from "@/components/marketing/AgentLandingPage";
+import { HeroVisual } from "@/components/marketing/HeroVisual";
 
 export default function TextToSpeechPage() {
   return (
     <AgentLandingPage
+      heroVisual={<HeroVisual variant="tts" />}
       eyebrow="Developers — Text To Speech"
       headline="A Voice That Doesn't Sound Like It's Reading a Script"
       subheadline="Natural, low-latency speech synthesis that keeps a conversation feeling human — with custom voice and brand tone options when you need them."

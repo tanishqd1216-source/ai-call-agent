@@ -75,7 +75,16 @@ export function MarketingNav({ align = "start" }: { align?: "start" | "center" }
       return;
     }
     const rect = event.currentTarget.getBoundingClientRect();
-    setOpen({ label, top: rect.bottom + 8, left: rect.left });
+    // Clamp against the viewport instead of anchoring straight to the button's
+    // left edge — the dropdown is up to 560px wide, so right-hand items (e.g.
+    // "Company", the last menu) would otherwise push it off the right edge.
+    const margin = 16;
+    const dropdownWidth = Math.min(560, window.innerWidth - margin * 2);
+    const left = Math.min(
+      Math.max(rect.left, margin),
+      window.innerWidth - dropdownWidth - margin,
+    );
+    setOpen({ label, top: rect.bottom + 8, left });
     setActiveCategory(0);
   }
 

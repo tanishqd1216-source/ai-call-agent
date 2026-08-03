@@ -5,6 +5,7 @@ import { eventsRouter } from "./routes/events.js";
 import { callsRouter } from "./routes/calls.js";
 import { authRouter } from "./routes/auth.js";
 import { departmentsRouter } from "./routes/departments.js";
+import { integrationsRouter } from "./routes/integrations.js";
 
 const allowedOrigins = (process.env.ALLOWED_ORIGINS ?? "")
   .split(",")
@@ -33,6 +34,7 @@ export function createApp() {
   app.use("/api", callsRouter);
   app.use("/api", authRouter);
   app.use("/api", departmentsRouter);
+  app.use("/api", integrationsRouter);
 
   app.use(
     (err: unknown, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
